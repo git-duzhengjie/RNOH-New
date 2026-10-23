@@ -1,0 +1,32 @@
+{
+  "name": "@rnoh-new/react-native-harmony",
+  "version": "0.1.0",
+  "description": "React Native for HarmonyOS - Core bridge framework",
+  "main": "index.ets",
+  "types": "index.ets",
+  "license": "MIT",
+  "author": {
+    "name": "RNOH-New Contributors",
+    "url": "https://github.com/git-duzhengjie/RNOH-New"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/git-duzhengjie/RNOH-New.git",
+    "directory": "packages/react-native-harmony"
+  },
+  "keywords": [
+    "react-native",
+    "harmonyos",
+    "openharmony",
+    "bridge",
+    "fabric",
+    "turbo-module"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Build via hvigor'",
+    "test": "echo 'Tests TBD'",
+    "lint": "echo 'Lint TBD'",
+    "clean": "rm -rf build .cxx"
+  }
+}

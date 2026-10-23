@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+oh_modules/
+
+# Build outputs
+dist/
+build/
+.cxx/
+*.tgz
+
+# IDE
+.idea/
+.vs/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+
+# Logs
+*.log
+_tasks.log
+_tasktree.log
+
+# Signing
+sign/
+*.p12
+*.csr
+*.cer
+*.p7b
+
+# Turbo
+.turbo/
+
+# Generated
+generated/
