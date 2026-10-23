@@ -23,6 +23,7 @@ import { AnimatedTurboModule } from './turboModules/AnimatedTurboModule';
 import { LinkingTurboModule } from './turboModules/LinkingTurboModule';
 import { KeyboardTurboModule } from './turboModules/KeyboardTurboModule';
 import { TimingTurboModule } from './turboModules/TimingTurboModule';
+import { ExpoPackage } from '../Expo/ExpoPackage';
 
 const TAG = 'RNHCorePackage';
 
@@ -77,6 +78,13 @@ export class RNHCorePackage extends RNHPackage {
     map.set('LinkingManager', () => new LinkingTurboModule(tmContext));
     map.set('KeyboardObserver', () => new KeyboardTurboModule(tmContext));
     map.set('Timing', () => new TimingTurboModule(tmContext));
+
+    // Merge Expo core TurboModules
+    const expoPackage = new ExpoPackage(this.context);
+    const expoMap = expoPackage.getTurboModuleFactoryMap();
+    for (const [name, factory] of expoMap) {
+      map.set(name, factory);
+    }
 
     RNHLogger.info(TAG, `Registered ${map.size} TurboModules`);
     return map;

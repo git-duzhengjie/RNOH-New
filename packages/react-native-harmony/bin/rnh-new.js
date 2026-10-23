@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * RNOH-New CLI entry point
  *
@@ -7,12 +5,12 @@
  */
 
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { program } from 'commander';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const packageJson = await import(path.resolve(__dirname, '../package.json'), {
-  assert: { type: 'json' },
+const packageJson = await import(pathToFileURL(path.resolve(__dirname, '../package.json')).href, {
+  with: { type: 'json' },
 });
 
 program

@@ -5,19 +5,45 @@
  */
 
 import path from 'path';
+import fs from 'fs';
 import { spawnSync } from 'child_process';
+import { createRequire } from 'module';
 import chalk from 'chalk';
+
+const require = createRequire(import.meta.url);
+
+/**
+ * Find the monorepo / project root by walking up from cwd.
+ * Looks for node_modules/react-native/cli.js or node_modules/@react-native-community/cli.
+ */
+function findProjectRoot(startDir) {
+  let dir = path.resolve(startDir);
+  const { root } = path.parse(dir);
+
+  while (dir !== root) {
+    const rnCli = path.join(dir, 'node_modules', 'react-native', 'cli.js');
+    const communityCli = path.join(dir, 'node_modules', '@react-native-community', 'cli', 'build', 'bin.js');
+
+    if (fs.existsSync(rnCli) || fs.existsSync(communityCli)) {
+      return dir;
+    }
+    dir = path.dirname(dir);
+  }
+
+  // Fallback: return startDir
+  return path.resolve(startDir);
+}
 
 /**
  * Resolve the React Native CLI bundle script path.
  * Prefers the local project copy, falls back to @react-native-community/cli.
  */
 function resolveReactNativeCli() {
-  const localCli = path.resolve(process.cwd(), 'node_modules', 'react-native', 'cli.js');
-  const communityCli = path.resolve(process.cwd(), 'node_modules', '@react-native-community', 'cli', 'build', 'bin.js');
+  const projectRoot = findProjectRoot(process.cwd());
+  const localCli = path.resolve(projectRoot, 'node_modules', 'react-native', 'cli.js');
+  const communityCli = path.resolve(projectRoot, 'node_modules', '@react-native-community', 'cli', 'build', 'bin.js');
 
   try {
-    // ESM import.meta.resolve can be used, but require.resolve is simpler for files.
     return require.resolve(localCli);
   } catch {
     // fallthrough
@@ -51,9 +77,13 @@ function runBundle(options) {
   console.log(chalk.gray(`  assets: ${assetsDest}`));
   console.log(chalk.gray(`  dev: ${dev}`));
 
-  const reactNativeBundlePath = resolveReactNativeCli();
+  // Use the current working directory (where react-native.config.js lives)
+  const cwd = process.cwd();
+
+  // Use `npx react-native bundle` which auto-loads CLI plugins.
+  // This avoids manual plugin resolution issues in monorepos.
   const args = [
-    reactNativeBundlePath,
+    'react-native',
     'bundle',
     '--platform', platform,
     '--dev', dev ? 'true' : 'false',
@@ -63,9 +93,10 @@ function runBundle(options) {
     '--assets-dest', path.resolve(assetsDest),
   ];
 
-  const result = spawnSync('node', args, {
+  const result = spawnSync('npx', args, {
     stdio: 'inherit',
-    cwd: process.cwd(),
+    cwd,
+    shell: true,
   });
 
   if (result.error) {
