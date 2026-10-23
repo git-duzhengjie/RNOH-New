@@ -59,3 +59,11 @@ if(WITH_HITRACE)
     target_compile_definitions(rnh_new PRIVATE WITH_HITRACE=1)
     target_link_libraries(rnh_new PUBLIC libhitrace_ndk.z.so)
 endif()
+
+# Performance profiler (RNH_PERF_PROFILE)
+# ON  → 启用 RAII 计时器与性能统计（有轻微运行时开销）
+# OFF → 所有剖析宏展开为空，零开销（默认）
+option(RNH_PERF_PROFILE "Enable RNH performance profiler" OFF)
+if(RNH_PERF_PROFILE)
+    target_compile_definitions(rnh_new PRIVATE RNH_PERF_PROFILE=1)
+endif()

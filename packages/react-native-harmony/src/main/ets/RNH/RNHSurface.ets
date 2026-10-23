@@ -7,6 +7,7 @@
 
 import { RNHInstance } from './RNHInstance';
 import { RNHLogger } from './RNHLogger';
+import { RNHMemoryGuard } from './RNHMemoryGuard';
 import display from '@ohos.display';
 
 const TAG = 'RNHSurface';
@@ -36,6 +37,7 @@ export struct RNHSurface {
   @State private isStarted: boolean = false;
   @State private surfaceWidth: number = 0;
   @State private surfaceHeight: number = 0;
+  private memoryGuard: RNHMemoryGuard | null = null;
 
   private config: RNHSurfaceConfig = {
     surfaceId: 0,
@@ -58,6 +60,9 @@ export struct RNHSurface {
 
   aboutToAppear(): void {
     RNHLogger.info(TAG, `Surface ${this.config.surfaceId} aboutToAppear`);
+    // Register with memory guard for cleanup tracking
+    this.memoryGuard = this.config.instance.getMemoryGuard();
+    this.memoryGuard.registerSurface(this.config.surfaceId);
     // If the component already has a size (e.g. re-appearing), start immediately
     if (this.surfaceWidth > 0 && this.surfaceHeight > 0 && !this.isStarted) {
       this.startSurface(this.surfaceWidth, this.surfaceHeight);
@@ -107,6 +112,11 @@ export struct RNHSurface {
     if (this.isStarted) {
       this.config.instance.stopSurface(this.config.surfaceId);
       this.isStarted = false;
+    }
+    // Clean up tracked resources via memory guard
+    if (this.memoryGuard) {
+      this.memoryGuard.cleanupSurface(this.config.surfaceId);
+      this.memoryGuard = null;
     }
   }
 

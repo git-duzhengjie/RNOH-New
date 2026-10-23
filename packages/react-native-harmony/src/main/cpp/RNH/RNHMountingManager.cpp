@@ -3,12 +3,25 @@
  *
  * 接收 Fabric 渲染器（C++ 侧）下发的变更指令（Mutation），
  * 并应用到实际的 ArkUI 组件树。
+ *
+ * 性能优化：
+ *  - 批量变更合并：同一 tag 的同类变更（UPDATE_PROPS / UPDATE_LAYOUT /
+ *    UPDATE_STATE / UPDATE_EVENT_EMITTER）在应用前合并为最后一次，
+ *    减少 ArkUI 节点操作次数。
+ *  - CREATE+DELETE 抵消：同一 tag 先创建后删除，直接跳过，避免
+ *    不必要的组件生命周期开销。
+ *  - INSERT+REMOVE 抵消：同一父子对的插入后立即移除，直接跳过。
+ *
  * 所有公共方法均加锁保证线程安全。
  */
 
 #include "RNHMountingManager.h"
 #include "RNHComponentInstance.h"
 #include "RNHComponentDescriptorProvider.h"
+
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace rnoh_new {
 
@@ -33,11 +46,14 @@ RNHMountingManager::~RNHMountingManager() {
 
 void RNHMountingManager::processMutations(
     const std::vector<RNHMutation>& mutations) {
-    // 遍历每条变更指令，分发到对应的处理器
-    // 注意：整个批次在同一把锁内执行，保证原子性
+    // 整个批次在同一把锁内执行，保证原子性
     std::lock_guard<std::mutex> lock(mutex_);
 
-    for (const auto& mutation : mutations) {
+    // 第一步：合并/优化变更列表（减少 ArkUI 操作次数）
+    auto optimized = coalesceMutations(mutations);
+
+    // 第二步：逐个应用优化后的变更
+    for (const auto& mutation : optimized) {
         switch (mutation.type) {
             case RNHMutationType::CREATE:
                 handleCreate(mutation);
@@ -65,6 +81,148 @@ void RNHMountingManager::processMutations(
                 break;
         }
     }
+}
+
+// ---------------------------------------------------------------------------
+// 批量变更合并优化
+// ---------------------------------------------------------------------------
+
+std::vector<RNHMutation> RNHMountingManager::coalesceMutations(
+    const std::vector<RNHMutation>& mutations) const {
+    // 结果列表：按顺序保留最终需要应用的变更
+    std::vector<RNHMutation> result;
+    result.reserve(mutations.size());
+
+    // 记录各 tag 最后一次同类变更在 result 中的索引（-1 表示未出现）
+    // 用于 UPDATE_PROPS / UPDATE_LAYOUT / UPDATE_STATE / UPDATE_EVENT_EMITTER
+    // 的合并（后写覆盖前写）
+    std::unordered_map<int, size_t> lastPropsIndex;     // tag → result index
+    std::unordered_map<int, size_t> lastLayoutIndex;
+    std::unordered_map<int, size_t> lastStateIndex;
+    std::unordered_map<int, size_t> lastEventEmitterIndex;
+
+    // 记录 CREATE 的 tag → result index（用于 CREATE+DELETE 抵消检测）
+    std::unordered_map<int, size_t> createIndex;
+
+    // 记录 INSERT 的 (parentTag, tag) → result index（用于 INSERT+REMOVE 抵消）
+    // key 用 (parentTag << 32) | (tag & 0xFFFFFFFF) 合成
+    auto makeInsertKey = [](int parent, int tag) -> uint64_t {
+        return (static_cast<uint64_t>(parent) << 32) |
+               (static_cast<uint64_t>(tag) & 0xFFFFFFFFULL);
+    };
+    std::unordered_map<uint64_t, size_t> insertIndex;
+
+    for (const auto& m : mutations) {
+        switch (m.type) {
+            case RNHMutationType::UPDATE_PROPS: {
+                auto it = lastPropsIndex.find(m.tag);
+                if (it != lastPropsIndex.end()) {
+                    // 同 tag 已有 UPDATE_PROPS，用最新的 propsJson 覆盖
+                    result[it->second].propsJson = m.propsJson;
+                } else {
+                    // 新的变更，追加到结果
+                    lastPropsIndex[m.tag] = result.size();
+                    result.push_back(m);
+                }
+                break;
+            }
+
+            case RNHMutationType::UPDATE_LAYOUT: {
+                auto it = lastLayoutIndex.find(m.tag);
+                if (it != lastLayoutIndex.end()) {
+                    // 同 tag 已有 UPDATE_LAYOUT，用最新的布局值覆盖
+                    auto& dst = result[it->second];
+                    dst.x = m.x;
+                    dst.y = m.y;
+                    dst.width = m.width;
+                    dst.height = m.height;
+                } else {
+                    lastLayoutIndex[m.tag] = result.size();
+                    result.push_back(m);
+                }
+                break;
+            }
+
+            case RNHMutationType::UPDATE_STATE: {
+                auto it = lastStateIndex.find(m.tag);
+                if (it != lastStateIndex.end()) {
+                    result[it->second].stateJson = m.stateJson;
+                } else {
+                    lastStateIndex[m.tag] = result.size();
+                    result.push_back(m);
+                }
+                break;
+            }
+
+            case RNHMutationType::UPDATE_EVENT_EMITTER: {
+                auto it = lastEventEmitterIndex.find(m.tag);
+                if (it != lastEventEmitterIndex.end()) {
+                    // 事件发射器更新只保留最后一次
+                    result[it->second] = m;
+                } else {
+                    lastEventEmitterIndex[m.tag] = result.size();
+                    result.push_back(m);
+                }
+                break;
+            }
+
+            case RNHMutationType::CREATE: {
+                createIndex[m.tag] = result.size();
+                result.push_back(m);
+                break;
+            }
+
+            case RNHMutationType::DELETE: {
+                auto it = createIndex.find(m.tag);
+                if (it != createIndex.end()) {
+                    // CREATE + DELETE 成对出现 → 两者抵消
+                    // 将 result 中对应位置的 CREATE 标记为无效（用空 tag = -1
+                    // 占位，最后过滤掉）
+                    result[it->second].tag = -1;
+                    createIndex.erase(it);
+                    // 同时清理该 tag 的其他待合并变更
+                    lastPropsIndex.erase(m.tag);
+                    lastLayoutIndex.erase(m.tag);
+                    lastStateIndex.erase(m.tag);
+                    lastEventEmitterIndex.erase(m.tag);
+                } else {
+                    result.push_back(m);
+                }
+                break;
+            }
+
+            case RNHMutationType::INSERT: {
+                uint64_t key = makeInsertKey(m.parentTag, m.tag);
+                insertIndex[key] = result.size();
+                result.push_back(m);
+                break;
+            }
+
+            case RNHMutationType::REMOVE: {
+                uint64_t key = makeInsertKey(m.parentTag, m.tag);
+                auto it = insertIndex.find(key);
+                if (it != insertIndex.end()) {
+                    // INSERT + REMOVE 成对且父子相同 → 两者抵消
+                    result[it->second].tag = -1; // 标记为无效
+                    insertIndex.erase(it);
+                } else {
+                    result.push_back(m);
+                }
+                break;
+            }
+        }
+    }
+
+    // 过滤掉被标记为无效的条目（tag == -1）
+    std::vector<RNHMutation> finalResult;
+    finalResult.reserve(result.size());
+    for (auto& m : result) {
+        if (m.tag != -1) {
+            finalResult.push_back(std::move(m));
+        }
+    }
+
+    return finalResult;
 }
 
 // ---------------------------------------------------------------------------

@@ -4,6 +4,13 @@
  * Receives mutation instructions from the Fabric renderer (C++ side)
  * and applies them to the actual ArkUI component tree.
  * This is the bridge between React's virtual DOM and HarmonyOS native UI.
+ *
+ * Performance optimizations:
+ *  - Batch mutation coalescing: same-tag / same-type mutations are merged
+ *    before being applied, reducing redundant ArkUI node operations.
+ *  - Props merge: multiple UPDATE_PROPS for the same tag collapse into
+ *    one (last-write-wins), avoiding repeated JSON parsing on ArkUI side.
+ *  - Layout merge: multiple UPDATE_LAYOUT for the same tag collapse into one.
  */
 
 #pragma once
@@ -13,6 +20,7 @@
 #include <string>
 #include <functional>
 #include <unordered_map>
+#include <unordered_set>
 #include <mutex>
 
 namespace rnoh_new {
@@ -51,6 +59,12 @@ struct RNHMutation {
 /**
  * MountingManager processes a batch of mutations from Fabric's
  * ShadowTree commit and applies them to the native component tree.
+ *
+ * Before applying, mutations are optimized:
+ *  - Duplicate UPDATE_PROPS / UPDATE_LAYOUT / UPDATE_STATE for the
+ *    same tag are collapsed (last-write-wins).
+ *  - CREATE immediately followed by DELETE for the same tag cancels out.
+ *  - INSERT + REMOVE pairs (same parent, same child, same index) cancel out.
  */
 class RNHMountingManager {
 public:
@@ -59,6 +73,7 @@ public:
     ~RNHMountingManager();
 
     // Process a batch of mutations (called from Fabric scheduler)
+    // Optimizes the batch internally before applying.
     void processMutations(const std::vector<RNHMutation>& mutations);
 
     // Get a component instance by tag
@@ -79,7 +94,28 @@ public:
     int getRootTag() const { return rootTag_; }
 
 private:
-    // Individual mutation handlers
+    // -----------------------------------------------------------------------
+    // Batch optimization (internal, called with lock held)
+    // -----------------------------------------------------------------------
+
+    /**
+     * Coalesce a raw mutation list into an optimized list.
+     * Rules:
+     *  - Same-tag UPDATE_PROPS: keep only the last one
+     *  - Same-tag UPDATE_LAYOUT: keep only the last one
+     *  - Same-tag UPDATE_STATE: keep only the last one
+     *  - Same-tag UPDATE_EVENT_EMITTER: keep only the last one
+     *  - CREATE + DELETE for same tag → both removed (component never existed)
+     *  - INSERT + REMOVE for same (parentTag, tag) → both removed
+     *    (but only if index matches; otherwise kept as-is)
+     */
+    std::vector<RNHMutation> coalesceMutations(
+        const std::vector<RNHMutation>& mutations) const;
+
+    // -----------------------------------------------------------------------
+    // Individual mutation handlers (internal, called with lock held)
+    // -----------------------------------------------------------------------
+
     void handleCreate(const RNHMutation& mutation);
     void handleDelete(const RNHMutation& mutation);
     void handleInsert(const RNHMutation& mutation);
