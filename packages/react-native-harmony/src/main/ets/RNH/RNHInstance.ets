@@ -6,30 +6,14 @@
  */
 
 import { RNHLogger } from './RNHLogger';
+import rnh from 'librnh.so';
 
 const TAG = 'RNHInstance';
-
-// NAPI bridge types
-declare const rnohNew: {
-  createInstance(config: RNHInstanceNativeConfig): number;
-  destroyInstance(instanceId: number): void;
-  loadBundle(instanceId: number, path: string): boolean;
-  loadBundleFromUrl(instanceId: number, url: string): boolean;
-  startSurface(instanceId: number, surfaceId: number, moduleName: string,
-               width: number, height: number, pixelRatio: number): void;
-  stopSurface(instanceId: number, surfaceId: number): void;
-  updateSurfaceSize(instanceId: number, surfaceId: number,
-                    width: number, height: number): void;
-  emitEvent(instanceId: number, surfaceId: number,
-            eventName: string, payload: string): void;
-  sendTouchEvent(instanceId: number, surfaceId: number,
-                 action: number, x: number, y: number, timestamp: number): void;
-};
 
 /**
  * Native-side instance configuration
  */
-interface RNHInstanceNativeConfig {
+export interface RNHInstanceNativeConfig {
   bundlePath: string;
   bundleUrl: string;
   enableHermes: boolean;
@@ -43,6 +27,29 @@ interface RNHInstanceNativeConfig {
   viewportHeight: number;
   pixelRatio: number;
 }
+
+/**
+ * NAPI native module interface.
+ * These signatures must match the C++ implementation in librnh.so.
+ */
+interface RNHNativeModule {
+  createInstance(config: RNHInstanceNativeConfig): number;
+  destroyInstance(instanceId: number): void;
+  loadBundle(instanceId: number, path: string): boolean;
+  loadBundleFromUrl(instanceId: number, url: string): boolean;
+  startSurface(instanceId: number, surfaceId: number, moduleName: string,
+               width: number, height: number, pixelRatio: number): void;
+  stopSurface(instanceId: number, surfaceId: number): void;
+  updateSurfaceSize(instanceId: number, surfaceId: number,
+                    width: number, height: number): void;
+  emitEvent(instanceId: number, surfaceId: number,
+            eventName: string, payload: string): void;
+  sendTouchEvent(instanceId: number, surfaceId: number,
+                 action: number, x: number, y: number, timestamp: number): void;
+}
+
+// Cast the imported native module to our typed interface
+const native: RNHNativeModule = rnh as RNHNativeModule;
 
 /**
  * RNH Instance - manages the lifecycle of one RN runtime
@@ -60,8 +67,7 @@ export class RNHInstance {
   private createNativeInstance(): void {
     try {
       RNHLogger.info(TAG, 'Creating native RNH instance...');
-      // TODO: Load NAPI module and call createInstance
-      // this.instanceId = rnohNew.createInstance(this.config);
+      this.instanceId = native.createInstance(this.config);
       RNHLogger.info(TAG, `Native instance created, id: ${this.instanceId}`);
     } catch (e) {
       RNHLogger.error(TAG, `Failed to create native instance: ${e}`);
@@ -74,8 +80,18 @@ export class RNHInstance {
    */
   loadBundle(path: string): boolean {
     RNHLogger.info(TAG, `Loading bundle: ${path}`);
-    // TODO: Call native loadBundle
-    return true;
+    if (this.instanceId < 0) {
+      RNHLogger.warn(TAG, 'Instance not created, cannot load bundle');
+      return false;
+    }
+    try {
+      const result = native.loadBundle(this.instanceId, path);
+      RNHLogger.info(TAG, `Bundle loaded: ${result}`);
+      return result;
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to load bundle: ${e}`);
+      return false;
+    }
   }
 
   /**
@@ -83,8 +99,18 @@ export class RNHInstance {
    */
   loadBundleFromUrl(url: string): boolean {
     RNHLogger.info(TAG, `Loading bundle from URL: ${url}`);
-    // TODO: Call native loadBundleFromUrl
-    return true;
+    if (this.instanceId < 0) {
+      RNHLogger.warn(TAG, 'Instance not created, cannot load bundle from URL');
+      return false;
+    }
+    try {
+      const result = native.loadBundleFromUrl(this.instanceId, url);
+      RNHLogger.info(TAG, `Bundle from URL loaded: ${result}`);
+      return result;
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to load bundle from URL: ${e}`);
+      return false;
+    }
   }
 
   /**
@@ -93,8 +119,16 @@ export class RNHInstance {
   startSurface(surfaceId: number, moduleName: string,
                width: number, height: number, pixelRatio: number): void {
     RNHLogger.info(TAG, `Starting surface ${surfaceId}, module: ${moduleName}`);
-    // TODO: Call native startSurface
-    this.surfaces.add(surfaceId);
+    if (this.instanceId < 0) {
+      RNHLogger.warn(TAG, 'Instance not created, cannot start surface');
+      return;
+    }
+    try {
+      native.startSurface(this.instanceId, surfaceId, moduleName, width, height, pixelRatio);
+      this.surfaces.add(surfaceId);
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to start surface: ${e}`);
+    }
   }
 
   /**
@@ -102,22 +136,44 @@ export class RNHInstance {
    */
   stopSurface(surfaceId: number): void {
     RNHLogger.info(TAG, `Stopping surface ${surfaceId}`);
-    // TODO: Call native stopSurface
-    this.surfaces.delete(surfaceId);
+    if (this.instanceId < 0) {
+      RNHLogger.warn(TAG, 'Instance not created, cannot stop surface');
+      return;
+    }
+    try {
+      native.stopSurface(this.instanceId, surfaceId);
+      this.surfaces.delete(surfaceId);
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to stop surface: ${e}`);
+    }
   }
 
   /**
    * Update surface dimensions
    */
   updateSurfaceSize(surfaceId: number, width: number, height: number): void {
-    // TODO: Call native updateSurfaceSize
+    if (this.instanceId < 0) {
+      return;
+    }
+    try {
+      native.updateSurfaceSize(this.instanceId, surfaceId, width, height);
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to update surface size: ${e}`);
+    }
   }
 
   /**
    * Emit an event to JS
    */
   emitEvent(surfaceId: number, eventName: string, payload: string): void {
-    // TODO: Call native emitEvent
+    if (this.instanceId < 0) {
+      return;
+    }
+    try {
+      native.emitEvent(this.instanceId, surfaceId, eventName, payload);
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to emit event: ${e}`);
+    }
   }
 
   /**
@@ -125,7 +181,14 @@ export class RNHInstance {
    */
   sendTouchEvent(surfaceId: number, action: number,
                  x: number, y: number, timestamp: number): void {
-    // TODO: Call native sendTouchEvent
+    if (this.instanceId < 0) {
+      return;
+    }
+    try {
+      native.sendTouchEvent(this.instanceId, surfaceId, action, x, y, timestamp);
+    } catch (e) {
+      RNHLogger.error(TAG, `Failed to send touch event: ${e}`);
+    }
   }
 
   /**
@@ -141,7 +204,11 @@ export class RNHInstance {
 
     // Destroy native instance
     if (this.instanceId >= 0) {
-      // TODO: Call native destroyInstance
+      try {
+        native.destroyInstance(this.instanceId);
+      } catch (e) {
+        RNHLogger.error(TAG, `Failed to destroy instance: ${e}`);
+      }
       this.instanceId = -1;
     }
     RNHLogger.info(TAG, 'RNH instance destroyed');

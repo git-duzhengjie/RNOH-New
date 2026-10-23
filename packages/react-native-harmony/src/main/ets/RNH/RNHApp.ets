@@ -7,6 +7,7 @@
 
 import { RNHInstance } from './RNHInstance';
 import { RNHLogger } from './RNHLogger';
+import { RNHSurface } from './RNHSurface';
 
 const TAG = 'RNHApp';
 
@@ -106,16 +107,18 @@ export struct RNHApp {
       .width('100%')
       .height('100%')
       .justifyContent(FlexAlign.Center)
-    } else if (this.isInitialized) {
-      // RN Surface placeholder
-      // TODO: Replace with actual RNHSurface component
-      Column() {
-        Text(`RNH Surface: ${this.config.moduleName}`)
-          .fontSize(16)
-          .fontColor(Color.Black)
-      }
-      .width('100%')
-      .height('100%')
+    } else if (this.isInitialized && this.instance) {
+      // Real RN Surface
+      RNHSurface({
+        config: {
+          surfaceId: 1,
+          moduleName: this.config.moduleName,
+          initialProps: this.config.initialProps,
+          instance: this.instance,
+        }
+      })
+        .width('100%')
+        .height('100%')
     } else {
       // Loading state
       Column() {

@@ -7,6 +7,7 @@
 
 import { RNHInstance } from './RNHInstance';
 import { RNHLogger } from './RNHLogger';
+import display from '@ohos.display';
 
 const TAG = 'RNHSurface';
 
@@ -42,8 +43,25 @@ export struct RNHSurface {
     instance: null as unknown as RNHInstance,
   };
 
+  /**
+   * Get the device pixel ratio via @ohos.display
+   */
+  private getPixelRatio(): number {
+    try {
+      const disp = display.getDefaultDisplaySync();
+      return disp.densityPixels;
+    } catch (e) {
+      RNHLogger.warn(TAG, `Failed to get pixel ratio, fallback to 1.0: ${e}`);
+      return 1.0;
+    }
+  }
+
   aboutToAppear(): void {
     RNHLogger.info(TAG, `Surface ${this.config.surfaceId} aboutToAppear`);
+    // If the component already has a size (e.g. re-appearing), start immediately
+    if (this.surfaceWidth > 0 && this.surfaceHeight > 0 && !this.isStarted) {
+      this.startSurface(this.surfaceWidth, this.surfaceHeight);
+    }
   }
 
   onAreaChange(oldArea: Area, newArea: Area): void {
@@ -64,12 +82,13 @@ export struct RNHSurface {
 
   private startSurface(width: number, height: number): void {
     RNHLogger.info(TAG, `Starting surface ${this.config.surfaceId}: ${width}x${height}`);
+    const pixelRatio = this.getPixelRatio();
     this.config.instance.startSurface(
       this.config.surfaceId,
       this.config.moduleName,
       width,
       height,
-      1.0 // TODO: Get actual pixel ratio
+      pixelRatio
     );
     this.isStarted = true;
   }
