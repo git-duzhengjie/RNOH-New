@@ -1,0 +1,13 @@
+{
+  "modelVersion": "5.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "@ohos/hypium": "1.0.6"
+  },
+  "name": "{{PROJECT_SLUG}}",
+  "description": "{{PROJECT_NAME}} - React Native for HarmonyOS app",
+  "version": "{{PROJECT_VERSION}}",
+  "dependencies": {
+    "@rnoh-new/react-native-harmony": "0.1.0"
+  }
+}

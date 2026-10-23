@@ -1,0 +1,59 @@
+# RNOH-New: 自动发布工作流
+#
+# 触发条件：
+#   1. 推送 tag（v*，如 v0.1.0）
+#   2. push 到 main 分支且 packages/*/package.json 版本号发生变更
+#
+# 流程：checkout → setup-node → npm ci → 构建 → 依次发布三个 npm 包
+
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - main
+    paths:
+      - "packages/**/package.json"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    # 防止多个 tag/提交同时触发重复发布
+    concurrency:
+      group: npm-publish
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build packages
+        run: npm run build
+
+      # 依次发布三个包（必须使用 NPM_TOKEN 认证）
+      - name: Publish @rnoh-new/react-native-harmony
+        run: npm publish --workspace @rnoh-new/react-native-harmony --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @rnoh-new/hvigor-plugin
+        run: npm publish --workspace @rnoh-new/hvigor-plugin --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @rnoh-new/create-rnh-app
+        run: npm publish --workspace @rnoh-new/create-rnh-app --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

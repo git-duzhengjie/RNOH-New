@@ -1,0 +1,50 @@
+{
+  "name": "@rnoh-new/create-rnh-app",
+  "version": "0.1.0",
+  "description": "CLI tool to scaffold a new RNOH-New (React Native for HarmonyOS) project",
+  "license": "MIT",
+  "author": {
+    "name": "RNOH-New Contributors",
+    "url": "https://github.com/git-duzhengjie/RNOH-New"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/git-duzhengjie/RNOH-New.git",
+    "directory": "packages/create-rnh-app"
+  },
+  "bin": {
+    "create-rnh-app": "./bin/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "template"
+  ],
+  "keywords": [
+    "react-native",
+    "harmonyos",
+    "openharmony",
+    "cli",
+    "scaffold",
+    "create-rnh-app"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "echo 'Tests TBD'",
+    "lint": "echo 'Lint TBD'",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "chalk": "^4.1.2",
+    "fs-extra": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

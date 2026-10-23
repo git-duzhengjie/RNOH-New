@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "{{PROJECT_NAME}}"
+    },
+    {
+      "name": "module_desc",
+      "value": "{{PROJECT_NAME}} entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "{{PROJECT_NAME}} EntryAbility"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "{{PROJECT_NAME}}"
+    }
+  ]
+}

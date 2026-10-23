@@ -1,0 +1,25 @@
+{
+  "name": "{{PROJECT_SLUG}}",
+  "version": "{{PROJECT_VERSION}}",
+  "private": true,
+  "description": "{{PROJECT_NAME}} - React Native for HarmonyOS app",
+  "scripts": {
+    "start": "react-native start",
+    "bundle:harmony": "rnh-new bundle --platform harmony --entry-file ./src/index.js --bundle-output ./harmony/entry/src/main/resources/rawfile/bundle.harmony.js --assets-dest ./harmony/entry/src/main/resources/rawfile/assets",
+    "codegen": "rnh-new codegen --project-root . --rnoh-module-path ./node_modules/@rnoh-new/react-native-harmony",
+    "doctor": "rnh-new doctor",
+    "build:harmony": "cd harmony && hvigorw assembleHap"
+  },
+  "dependencies": {
+    "react": "19.0.0",
+    "react-native": "0.79.0",
+    "@rnoh-new/react-native-harmony": "0.1.0",
+    "@rnoh-new/hvigor-plugin": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.6.0",
+    "@react-native/babel-preset": "^0.79.0",
+    "@react-native/metro-babel-transformer": "^0.79.0"
+  }
+}

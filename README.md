@@ -35,7 +35,7 @@ RNOH-New/
 │   │   │   └── RNHCorePackage/        # 核心包
 │   │   └── ...
 │   ├── react-native-harmony-hvigor-plugin/  # hvigor 构建插件
-│   └── create-rnh-app/                # 项目脚手架工具
+│   └── create-rnh-app/                # 项目脚手架工具（create-rnh-app CLI）
 ├── examples/
 │   └── HelloWorld/                    # 示例项目
 ├── docs/                              # 文档
@@ -68,7 +68,7 @@ npm run build
 ### 创建新项目
 
 ```bash
-# 使用脚手架创建新项目（待实现）
+# 使用脚手架创建新项目
 npx @rnoh-new/create-rnh-app MyApp
 cd MyApp
 
@@ -77,6 +77,18 @@ npm start
 
 # 构建鸿蒙应用（在 DevEco Studio 中打开 harmony/ 目录）
 ```
+
+脚手架常用参数：
+
+```bash
+# 使用 TypeScript 模板
+npx @rnoh-new/create-rnh-app MyApp --typescript
+
+# 跳过依赖安装 / 不初始化 Git
+npx @rnoh-new/create-rnh-app MyApp --skip-install --no-git
+```
+
+> 完整参数说明与常见问题，见 [packages/create-rnh-app/README.md](packages/create-rnh-app/README.md)
 
 ### 集成到现有 Expo 项目
 

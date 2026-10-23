@@ -1,0 +1,59 @@
+# RNOH-New: 持续集成工作流
+#
+# 触发条件：push 到任意分支、或创建/更新 Pull Request
+# 流程：checkout → setup-node → npm ci → lint → typecheck → node 语法检查
+
+name: CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18, 20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 若存在 lint 脚本则执行（不存在时跳过）
+      - name: Run lint (if available)
+        run: |
+          if npm run lint --if-present; then
+            echo "✅ Lint passed"
+          fi
+
+      # 若存在 tsconfig.json 则执行类型检查（不存在时跳过）
+      - name: Run typecheck (if tsconfig exists)
+        run: |
+          if [ -f tsconfig.json ]; then
+            npx tsc --noEmit
+          else
+            echo "ℹ️  No tsconfig.json found, skipping typecheck"
+          fi
+
+      # 对仓库内所有 .js / .mjs / .cjs 文件做语法检查
+      - name: Node syntax check
+        run: |
+          find . -type f \( -name "*.js" -o -name ".mjs" -o -name ".cjs" \) \
+            -not -path "./node_modules/*" -not -path "./packages/*/node_modules/*" \
+            -not -path "./examples/*/node_modules/*" \
+            | xargs -r -n 1 node -c

@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "{{PROJECT_VERSION}}",
+  "description": "Entry module for {{PROJECT_NAME}}",
+  "main": "",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@rnoh-new/react-native-harmony": "0.1.0"
+  }
+}
