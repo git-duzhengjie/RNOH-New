@@ -12,6 +12,7 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <cstdint>
 
 // ArkUI Native API forward declarations
 struct ArkUI_NodeHandle;
@@ -159,6 +160,14 @@ private:
     std::vector<RNHArkUINode*> children_;
     float measuredWidth_ = 0.0f;
     float measuredHeight_ = 0.0f;
+
+    // Stored event callbacks (set via setOnTouchCallback/setOnClickCallback)
+    TouchEventCallback touchCallback_;
+    ClickEventCallback clickCallback_;
+
+    // Internal: forward native events (called by the global event receiver)
+    void handleNativeTouch(int action, float x, float y);
+    void handleNativeClick();
 
     // Create the native ArkUI node
     void createNode();

@@ -8,6 +8,11 @@
 #include "ComponentInstances/ViewComponentInstance.h"
 #include "ComponentInstances/TextComponentInstance.h"
 #include "ComponentInstances/ImageComponentInstance.h"
+#include "ComponentInstances/ScrollViewComponentInstance.h"
+#include "ComponentInstances/TextInputComponentInstance.h"
+#include "ComponentInstances/SwitchComponentInstance.h"
+#include "ComponentInstances/ActivityIndicatorComponentInstance.h"
+#include "ComponentInstances/ModalHostViewComponentInstance.h"
 
 namespace rnoh_new {
 
@@ -96,6 +101,36 @@ void RNHCorePackage::registerComponentDescriptors(
     provider->registerDescriptor("Image", []() {
         return std::make_shared<RNHConcreteComponentDescriptor<ImageComponentInstance>>(
             "Image", "RNH.Image");
+    });
+
+    // 注册 ScrollView 组件
+    provider->registerDescriptor("ScrollView", []() {
+        return std::make_shared<RNHConcreteComponentDescriptor<ScrollViewComponentInstance>>(
+            "ScrollView", "RNH.ScrollView");
+    });
+
+    // 注册 TextInput 组件
+    provider->registerDescriptor("TextInput", []() {
+        return std::make_shared<RNHConcreteComponentDescriptor<TextInputComponentInstance>>(
+            "TextInput", "RNH.TextInput");
+    });
+
+    // 注册 Switch 组件
+    provider->registerDescriptor("Switch", []() {
+        return std::make_shared<RNHConcreteComponentDescriptor<SwitchComponentInstance>>(
+            "Switch", "RNH.Switch");
+    });
+
+    // 注册 ActivityIndicator 组件
+    provider->registerDescriptor("ActivityIndicatorView", []() {
+        return std::make_shared<RNHConcreteComponentDescriptor<ActivityIndicatorComponentInstance>>(
+            "ActivityIndicatorView", "RNH.ActivityIndicator");
+    });
+
+    // 注册 ModalHostView 组件
+    provider->registerDescriptor("ModalHostView", []() {
+        return std::make_shared<RNHConcreteComponentDescriptor<ModalHostViewComponentInstance>>(
+            "ModalHostView", "RNH.ModalHostView");
     });
 }
 

@@ -75,6 +75,9 @@ private:
     // Process events on the JS thread
     void processEventQueue();
 
+    // Notify all local listeners registered for the event name
+    void notifyLocalListeners(const RNHEvent& event);
+
     // Event queue for async dispatch
     std::vector<RNHEvent> eventQueue_;
     std::mutex queueMutex_;

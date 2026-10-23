@@ -11,6 +11,11 @@ import { RNHLogger } from '../RNH/RNHLogger';
 import { DeviceInfoTurboModule } from './turboModules/DeviceInfoTurboModule';
 import { AppStateTurboModule } from './turboModules/AppStateTurboModule';
 import { AccessibilityInfoTurboModule } from './turboModules/AccessibilityInfoTurboModule';
+import { AlertTurboModule } from './turboModules/AlertTurboModule';
+import { ClipboardTurboModule } from './turboModules/ClipboardTurboModule';
+import { DimensionsTurboModule } from './turboModules/DimensionsTurboModule';
+import { PixelRatioTurboModule } from './turboModules/PixelRatioTurboModule';
+import { PlatformTurboModule } from './turboModules/PlatformTurboModule';
 
 const TAG = 'RNHCorePackage';
 
@@ -53,6 +58,11 @@ export class RNHCorePackage extends RNHPackage {
     map.set('DeviceInfo', () => new DeviceInfoTurboModule(tmContext));
     map.set('AppState', () => new AppStateTurboModule(tmContext));
     map.set('AccessibilityInfo', () => new AccessibilityInfoTurboModule(tmContext));
+    map.set('AlertManager', () => new AlertTurboModule(tmContext));
+    map.set('Clipboard', () => new ClipboardTurboModule(tmContext));
+    map.set('Dimensions', () => new DimensionsTurboModule(tmContext));
+    map.set('PixelRatio', () => new PixelRatioTurboModule(tmContext));
+    map.set('PlatformConstants', () => new PlatformTurboModule(tmContext));
 
     RNHLogger.info(TAG, `Registered ${map.size} TurboModules`);
     return map;
