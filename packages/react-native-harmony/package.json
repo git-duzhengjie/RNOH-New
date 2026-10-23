@@ -27,6 +27,7 @@
     "build": "echo 'Build via hvigor'",
     "test": "echo 'Tests TBD'",
     "lint": "echo 'Lint TBD'",
-    "clean": "rm -rf build .cxx"
+    "clean": "rm -rf build .cxx",
+    "generate-autolinking": "node scripts/generate-autolinking.js"
   }
 }

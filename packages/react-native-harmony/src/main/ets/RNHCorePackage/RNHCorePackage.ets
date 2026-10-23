@@ -16,6 +16,13 @@ import { ClipboardTurboModule } from './turboModules/ClipboardTurboModule';
 import { DimensionsTurboModule } from './turboModules/DimensionsTurboModule';
 import { PixelRatioTurboModule } from './turboModules/PixelRatioTurboModule';
 import { PlatformTurboModule } from './turboModules/PlatformTurboModule';
+import { NetworkingTurboModule } from './turboModules/NetworkingTurboModule';
+import { AsyncStorageTurboModule } from './turboModules/AsyncStorageTurboModule';
+import { FileSystemTurboModule } from './turboModules/FileSystemTurboModule';
+import { AnimatedTurboModule } from './turboModules/AnimatedTurboModule';
+import { LinkingTurboModule } from './turboModules/LinkingTurboModule';
+import { KeyboardTurboModule } from './turboModules/KeyboardTurboModule';
+import { TimingTurboModule } from './turboModules/TimingTurboModule';
 
 const TAG = 'RNHCorePackage';
 
@@ -63,6 +70,13 @@ export class RNHCorePackage extends RNHPackage {
     map.set('Dimensions', () => new DimensionsTurboModule(tmContext));
     map.set('PixelRatio', () => new PixelRatioTurboModule(tmContext));
     map.set('PlatformConstants', () => new PlatformTurboModule(tmContext));
+    map.set('Networking', () => new NetworkingTurboModule(tmContext));
+    map.set('RNCAsyncStorage', () => new AsyncStorageTurboModule(tmContext));
+    map.set('RNFSManager', () => new FileSystemTurboModule(tmContext));
+    map.set('NativeAnimatedModule', () => new AnimatedTurboModule(tmContext));
+    map.set('LinkingManager', () => new LinkingTurboModule(tmContext));
+    map.set('KeyboardObserver', () => new KeyboardTurboModule(tmContext));
+    map.set('Timing', () => new TimingTurboModule(tmContext));
 
     RNHLogger.info(TAG, `Registered ${map.size} TurboModules`);
     return map;
