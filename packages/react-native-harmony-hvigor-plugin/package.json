@@ -1,0 +1,40 @@
+{
+  "name": "@rnoh-new/hvigor-plugin",
+  "version": "0.1.0",
+  "description": "RNOH-New project-level hvigor plugin for HarmonyOS builds",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "RNOH-New Contributors",
+    "url": "https://github.com/git-duzhengjie/RNOH-New"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "fs-extra": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@ohos/hvigor": "^4.0.0",
+    "@ohos/hvigor-ohos-plugin": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@ohos/hvigor": {
+      "optional": true
+    },
+    "@ohos/hvigor-ohos-plugin": {
+      "optional": true
+    }
+  }
+}

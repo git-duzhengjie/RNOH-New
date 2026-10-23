@@ -4,6 +4,9 @@
   "description": "React Native for HarmonyOS - Core bridge framework",
   "main": "index.ets",
   "types": "index.ets",
+  "bin": {
+    "rnh-new": "./bin/rnh-new.js"
+  },
   "license": "MIT",
   "author": {
     "name": "RNOH-New Contributors",
@@ -23,6 +26,10 @@
     "turbo-module"
   ],
   "type": "module",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "chalk": "^4.1.2"
+  },
   "scripts": {
     "build": "echo 'Build via hvigor'",
     "test": "echo 'Tests TBD'",
