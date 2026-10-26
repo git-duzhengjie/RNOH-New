@@ -24,16 +24,17 @@ RNOH-New 是一个全新的开源项目，旨在让 React Native 应用能够无
 ```
 RNOH-New/
 ├── packages/
-│   ├── react-native-harmony/          # 核心引擎库
+│   ├── react-native-harmony/          # 核心运行时库（自建编译）
 │   │   ├── src/main/cpp/              # C++ 核心（Fabric、TurboModule、NAPI）
-│   │   │   ├── RNH/                   # RNH 核心类
-│   │   │   ├── RNHCorePackage/        # 内置组件和模块
-│   │   │   ├── third-party/           # 第三方依赖（ReactCommon、Hermes等）
-│   │   │   └── patches/               # React Native 补丁
-│   │   ├── src/main/ets/              # ArkTS 层（UI、Worker、Package）
-│   │   │   ├── RNH/                   # RNH ArkTS 类
-│   │   │   └── RNHCorePackage/        # 核心包
-│   │   └── ...
+│   │   │   ├── RNOH/                  # 适配层核心（ArkUI、JSI、TaskExecutor/uv）
+│   │   │   ├── RNOHCorePackage/       # 内置组件与 TurboModule
+│   │   │   ├── patches/               # ReactCommon 补丁头
+│   │   │   └── third-party/           # 第三方源码（不入库，脚本获取）
+│   │   ├── src/main/ets/              # ArkTS 层（RNApp、RNSurface、Worker、Package）
+│   │   │   ├── RNOH/                  # 运行时 ArkTS 实现
+│   │   │   └── RNOHCorePackage/       # 核心包（组件/模块描述符）
+│   │   ├── libs/                      # 原生库产物（编译后发布，不入库）
+│   │   └── legacy/                    # 早期自研实现（已归档，不参与构建）
 │   ├── react-native-harmony-hvigor-plugin/  # hvigor 构建插件
 │   └── create-rnh-app/                # 项目脚手架工具（create-rnh-app CLI）
 ├── examples/
@@ -64,6 +65,31 @@ npm install
 # 构建核心库
 npm run build
 ```
+
+### 原生构建（自建运行时）
+
+核心运行时由本仓库**自行编译**：Hermes 使用官方 prebuilt `libhermesvm.so`，其余（ReactCommon / Folly /
+glog / fmt / boost / double-conversion / fast_float / RNOH / RNOHCorePackage）全部从源码构建。
+
+```powershell
+# 1. 同步第三方源码（约 790MB，不入库）
+powershell -ExecutionPolicy Bypass -File scripts/vendor-thirdparty.ps1
+
+# 2. 编译原生库并产出 HAR
+cd packages
+$env:DEVECO_SDK_HOME='D:\Program Files\Huawei\DevEco Studio\sdk'
+hvigorw --mode module -p module=react_native_harmony@default -p product=default assembleHar --no-daemon
+
+# 3. 发布原生库到包目录（hvigor 从依赖包的 libs/<arch>/ 收集 .so）
+powershell -ExecutionPolicy Bypass -File scripts/publish-libs.ps1
+powershell -ExecutionPolicy Bypass -File scripts/add-ffrt-lib.ps1
+
+# 4. 构建示例 HAP
+cd ../examples/HelloWorld/harmony
+hvigorw --mode module -p product=default assembleHap --no-daemon
+```
+
+> 详细步骤、依赖要求与常见坑位见 [docs/BUILD-NATIVE.md](docs/BUILD-NATIVE.md)。
 
 ### 创建新项目
 

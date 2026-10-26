@@ -1,5 +1,5 @@
 {
-  "modelVersion": "5.0.0",
+  "modelVersion": "6.0.2",
   "license": "MIT",
   "devDependencies": {
     "@ohos/hypium": "1.0.6"
@@ -8,6 +8,6 @@
   "description": "HelloWorld example for RNOH-New",
   "version": "0.1.0",
   "dependencies": {
-    "@rnoh-new/react-native-harmony": "../../packages/react-native-harmony"
+    "@rnoh-new/react-native-harmony": "file:../../../packages/react-native-harmony/build/default/outputs/default/react_native_harmony.har"
   }
 }

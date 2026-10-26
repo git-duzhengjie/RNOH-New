@@ -1,29 +1,33 @@
 /**
- * ArkTS exports (UI-side APIs)
+ * Copyright (c) 2025 Huawei Technologies Co., Ltd.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
-// App
-export { RNHApp } from './src/main/ets/RNH/RNHApp';
+export { RNApp, buildRNComponentForTag } from './src/main/ets/RNApp';
 
-// Ability
-export { RNHAbility } from './src/main/ets/RNH/RNHAbility';
+export { RNSurface } from './src/main/ets/RNSurface';
 
-// Surface
-export { RNHSurface } from './src/main/ets/RNH/RNHSurface';
-export { RNHSurfaceProvider } from './src/main/ets/RNH/RNHSurfaceProvider';
+export { LogBoxDialog } from './src/main/ets/LogBoxDialog';
 
-// Package
-export { RNHPackage } from './src/main/ets/RNH/RNHPackage';
-export { RNHPackageContext } from './src/main/ets/RNH/RNHPackageContext';
+export { RNOHErrorDialog } from './src/main/ets/RNOHErrorDialog';
 
-// Worker
-export { RNHWorker } from './src/main/ets/RNH/RNHWorker';
+export { RNPerfMonitorView } from './src/main/ets/RNOH/RNPerfMonitorView';
 
-// Core Package
-export { RNHCorePackage } from './src/main/ets/RNHCorePackage/RNHCorePackage';
+export { RNComponentContext,
+  ComponentBuilderContext,
+  CustomRNComponentFrameNodeFactory,
+  RNAbility,
+  RNInstancesCoordinator,
+  RNInstancesCoordinatorOptions,
+  RNInstancesCoordinatorDependencies,
+  RNOHPackage,
+  EtsWorkerTurboModule,
+  EtsUITurboModule } from './src/main/ets/RNOH/ets';
 
-// Logger
-export { RNHLogger } from './src/main/ets/RNH/RNHLogger';
+export * from './src/main/ets/RNOHCorePackage/components/RNComponentFactory';
 
-// Error Dialog
-export { RNHErrorDialog } from './src/main/ets/RNH/RNHErrorDialog';
+export * from './src/main/ets/RNOHCorePackage/components/RNViewBase/ets';
+
+export * from './src/main/ets/setupRNOHWorker';

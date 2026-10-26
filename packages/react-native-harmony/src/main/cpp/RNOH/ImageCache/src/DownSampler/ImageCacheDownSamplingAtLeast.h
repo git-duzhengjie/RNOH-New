@@ -1,0 +1,44 @@
+/*
+ * Copyright (C) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef IMAGE_CACHE_DOWN_SAMPLING_AT_LEAST_H
+#define IMAGE_CACHE_DOWN_SAMPLING_AT_LEAST_H
+
+#include "ImageCacheDownSamplingBase.h"
+
+namespace ImageCachePro {
+
+class ImageCacheDownSamplingAtLeast : public ImageCacheDownSamplingBase {
+ public:
+  float GetScaleFactor(
+      const Image_Size& sourceSize,
+      const Image_Size& requestSize) override {
+    IMAGE_CACHE_CHECK_RETURN(sourceSize.width == 0, 1);
+    IMAGE_CACHE_CHECK_RETURN(sourceSize.height == 0, 1);
+    float scaleFactor = std::max(
+        static_cast<float>(requestSize.width) / sourceSize.width,
+        static_cast<float>(requestSize.height) / sourceSize.height);
+    uint32_t width = std::round(scaleFactor * sourceSize.width);
+    uint32_t height = std::round(scaleFactor * sourceSize.height);
+    IMAGE_CACHE_CHECK_RETURN(width == 0, 1);
+    IMAGE_CACHE_CHECK_RETURN(height == 0, 1);
+    return static_cast<float>(GetFactorAsBit(
+        std::max(sourceSize.width / width, sourceSize.height / height)));
+  }
+};
+
+} // namespace ImageCachePro
+
+#endif // IMAGE_CACHE_DOWN_SAMPLING_AT_LEAST_H

@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "RNOH-New HelloWorld entry module",
+  "main": "",
+  "author": "RNOH-New Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "@rnoh-new/react-native-harmony": "file:../../../../packages/react-native-harmony/build/default/outputs/default/react_native_harmony.har"
+  }
+}

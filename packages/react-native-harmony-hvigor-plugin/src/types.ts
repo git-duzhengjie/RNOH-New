@@ -23,6 +23,17 @@ export interface HvigorLifecycle {
 }
 
 /**
+ * Hvigor 生命周期对象的真实 API 形态（兼容处理用）
+ *
+ * 真实 hvigor 提供的是形如 lifecycle.beforeNodeBuild(cb) 的方法，
+ * 而不是 registerHook(name, cb)。两者都兼容处理。
+ */
+export interface HvigorLifecycleCompat extends Partial<HvigorLifecycle> {
+  beforeNodeBuild?(callback: () => Promise<void> | void): void;
+  afterNodeBuild?(callback: () => Promise<void> | void): void;
+}
+
+/**
  * Hvigor 节点的最小接口
  * 项目级插件通过该节点获取生命周期与节点信息。
  */
@@ -41,6 +52,20 @@ export interface HvigorNode {
    * 获取节点路径
    */
   getNodePath(): string;
+}
+
+/**
+ * Hvigor 节点的真实 API 形态（兼容处理用）
+ *
+ * 真实 hvigor 的节点提供 getNodeName() / getNodePath() / getLifecycle()，
+ * 部分版本提供 getName()。这里全部声明为可选，运行时按可用性依次尝试。
+ */
+export interface HvigorNodeCompat {
+  getLifecycle?(): HvigorLifecycleCompat;
+  getName?(): string;
+  getNodeName?(): string;
+  getNodePath?(): string;
+  getNodeDir?(): string;
 }
 
 /**

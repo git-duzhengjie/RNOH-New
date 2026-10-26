@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "RNOH-New HelloWorld entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "HelloWorld application"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HelloWorld"
+    },
+    {
+      "name": "app_name",
+      "value": "HelloWorld"
+    }
+  ]
+}

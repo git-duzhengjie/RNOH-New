@@ -39,3 +39,24 @@ sign/
 
 # Generated
 generated/
+
+# ---------------------------------------------------------------------------
+# 自建运行时（RNOH-New）
+# ---------------------------------------------------------------------------
+
+# 第三方源码：体积约 790MB，不纳入仓库，用 scripts/vendor-thirdparty.ps1 获取
+packages/react-native-harmony/src/main/cpp/third-party/
+
+# 原生库产物：由 CMake 编译产生，用 scripts/publish-libs.ps1 发布到 dist-libs/
+# （注意：不能放在包内 libs/，否则与 CMake 产物重复导致 ProcessLibs 报铳）
+packages/*/libs/
+packages/*/dist-libs/
+*.sym
+
+# hvigor / ohpm 构建缓存
+.hvigor/
+**/.hvigor/
+**/oh_modules/
+
+# 临时目录
+.tmp/

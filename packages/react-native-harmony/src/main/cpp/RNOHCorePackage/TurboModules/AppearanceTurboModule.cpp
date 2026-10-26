@@ -1,0 +1,26 @@
+/**
+ * Copyright (c) 2024 Huawei Technologies Co., Ltd.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+#include "RNOHCorePackage/TurboModules/AppearanceTurboModule.h"
+
+namespace rnoh {
+using namespace facebook;
+
+AppearanceTurboModule::AppearanceTurboModule(
+    const ArkTSTurboModule::Context ctx,
+    const std::string name)
+    : ArkTSTurboModule(ctx, name) {
+  methodMap_ = {
+      ARK_METHOD_METADATA(getColorScheme, 0),
+      ARK_METHOD_METADATA(setColorScheme, 1),
+      // noop
+      ARK_METHOD_METADATA(addListener, 1),
+      ARK_METHOD_METADATA(removeListeners, 1),
+  };
+}
+
+} // namespace rnoh

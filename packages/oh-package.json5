@@ -1,0 +1,11 @@
+{
+  "modelVersion": "6.0.2",
+  "name": "rnoh-new-packages",
+  "version": "0.1.0",
+  "description": "RNOH-New packages root project",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hypium": "1.0.25"
+  }
+}

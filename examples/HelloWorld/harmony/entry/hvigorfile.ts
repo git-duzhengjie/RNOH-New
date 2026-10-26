@@ -1,11 +1,12 @@
-import { harTasks } from '@ohos/hvigor-ohos-plugin';
+import { hapTasks } from '@ohos/hvigor-ohos-plugin';
 import { createRNHModulePlugin } from '@rnoh-new/hvigor-plugin';
 
 export default {
-  system: harTasks,
+  system: hapTasks,
   plugins: [
     createRNHModulePlugin({
-      // Entry module configuration
-    })
+      nodeModulesPath: '../../node_modules',
+      rnohModulePath: '../../packages/react-native-harmony',
+    }),
   ],
 };

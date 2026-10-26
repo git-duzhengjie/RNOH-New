@@ -1,12 +1,12 @@
 /**
  * HelloWorld EntryAbility
  *
- * Extends RNHAbility to host the React Native app.
+ * 基于官方 RNOH 的 RNAbility 承载 React Native 页面。
  */
 
-import { RNHAbility } from '@rnoh-new/react-native-harmony';
+import { RNAbility } from '@rnoh-new/react-native-harmony';
 
-export default class EntryAbility extends RNHAbility {
+export default class EntryAbility extends RNAbility {
   override getPagePath(): string {
     return 'pages/Index';
   }

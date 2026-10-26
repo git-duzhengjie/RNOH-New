@@ -1,0 +1,48 @@
+/**
+ * Copyright (c) 2024 Huawei Technologies Co., Ltd.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+#include "NativeNodeApi.h"
+#include <glog/logging.h>
+#include <mutex>
+#include "RNOH/ParallelCheck.h"
+
+namespace rnoh {
+
+ArkUI_NativeNodeAPI_1* NativeNodeApi::INSTANCE = nullptr;
+std::mutex NativeNodeApi::instanceMutex;
+
+__attribute__((visibility("protected"))) ArkUI_NativeNodeAPI_1*
+NativeNodeApi::getInstance() {
+  std::lock_guard<std::mutex> lock(instanceMutex);
+  if (INSTANCE == nullptr) {
+#ifdef PARALLELIZATION_ON
+    if (IsParallelizationEnabled()) {
+      OH_ArkUI_GetModuleInterface(
+          ARKUI_MULTI_THREAD_NATIVE_NODE, ArkUI_NativeNodeAPI_1, INSTANCE);
+    } else {
+      OH_ArkUI_GetModuleInterface(
+          ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, INSTANCE);
+    }
+#else
+    OH_ArkUI_GetModuleInterface(
+        ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, INSTANCE);
+#endif
+    if (INSTANCE == nullptr) {
+      LOG(FATAL) << "Failed to get native node API instance.";
+    }
+  }
+  return INSTANCE;
+}
+
+void NativeNodeApi::resetInstance() {
+#ifdef C_API_ARCH
+  std::lock_guard<std::mutex> lock(instanceMutex);
+  INSTANCE = nullptr;
+#endif
+}
+
+} // namespace rnoh

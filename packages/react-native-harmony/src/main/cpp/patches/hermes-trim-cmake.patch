@@ -1,0 +1,27 @@
+diff --git a/API/CMakeLists.txt b/API/CMakeLists.txt
+index 867e9683f..d286231b2 100644
+--- a/API/CMakeLists.txt
++++ b/API/CMakeLists.txt
+@@ -5,4 +5,4 @@
+
+ add_subdirectory(hermes)
+ add_subdirectory(hermes_abi)
+-add_subdirectory(hermes_sandbox)
++# add_subdirectory(hermes_sandbox)  # RNOH: sandbox not used
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ab2b98017..b29130992 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -763,8 +764,10 @@ if(HERMES_ENABLE_TEST_SUITE)
+     message(FATAL_ERROR, "Running the test-suite requires the CLI tools to be built.")
+   endif()
+
+-  add_subdirectory(unittests)
+-  add_subdirectory(test/static_asserts)
++# RNOH: removed unused target
++#   add_subdirectory(unittests)
++# RNOH: removed unused target
++#   add_subdirectory(test/static_asserts)
+
+   list(APPEND HERMES_TEST_DEPS
+     HermesUnitTests

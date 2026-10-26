@@ -1,5 +1,5 @@
 {
-  "modelVersion": "5.0.0",
+  "modelVersion": "6.0.2",
   "license": "MIT",
   "types": "",
   "devDependencies": {
@@ -16,6 +16,9 @@
   },
   "type": "module",
   "version": "0.1.0",
+  "dependencies": {
+    "@ppd/ffrt": "1.1.10"
+  },
   "main": "index.ets",
   "repository": "https://github.com/git-duzhengjie/RNOH-New"
 }
