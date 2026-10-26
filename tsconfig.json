@@ -8,11 +8,23 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "rootDir": "src"
+    "noEmit": true
   },
-  "exclude": ["node_modules", "dist", "build"]
+  "files": [],
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "oh_modules",
+    "**/oh_modules",
+    "dist",
+    "**/dist",
+    "build",
+    "**/build",
+    ".hvigor",
+    "**/.hvigor",
+    ".cxx",
+    "**/.cxx",
+    "packages/react-native-harmony/src/main/cpp/**",
+    "**/legacy/**"
+  ]
 }

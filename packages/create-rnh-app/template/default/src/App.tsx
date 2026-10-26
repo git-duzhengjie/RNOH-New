@@ -28,7 +28,7 @@ function App(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to {{PROJECT_NAME}} 🎉</Text>
+      <Text style={styles.title}>Welcome to {'{{PROJECT_NAME}}'} 🎉</Text>
       <Text style={styles.subtitle}>
         React Native running on HarmonyOS
       </Text>

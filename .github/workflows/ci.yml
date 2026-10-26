@@ -41,13 +41,30 @@ jobs:
             echo "✅ Lint passed"
           fi
 
-      # 若存在 tsconfig.json 则执行类型检查（不存在时跳过）
-      - name: Run typecheck (if tsconfig exists)
+      # 分类型检查：逐个使用各包自己的 tsconfig（根节点为共享基座配置，不直接编译）
+      - name: Run typecheck (per-package tsconfig)
         run: |
-          if [ -f tsconfig.json ]; then
-            npx tsc --noEmit
-          else
+          found=0
+          for tsconfig in $(find . -maxdepth 4 -name "tsconfig.json" \
+            -not -path "./node_modules/*" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/oh_modules/*" \
+            -not -path "*/build/*" \
+            -not -path "*/dist/*" \
+            | sort); do
+            echo "▶ typecheck: $tsconfig"
+            # 跳过根节点的基座配置（files 为空，仅用于共享 compilerOptions）
+            if grep -q '"files"[[:space:]]*:[[:space:]]*\[\]' "$tsconfig"; then
+              echo "  ⏭  基座配置（files 为空），跳过"
+              continue
+            fi
+            npx tsc -p "$tsconfig" --noEmit || exit 1
+            found=$((found + 1))
+          done
+          if [ "$found" -eq 0 ]; then
             echo "ℹ️  No tsconfig.json found, skipping typecheck"
+          else
+            echo "✅ Typecheck passed for $found tsconfig(s)"
           fi
 
       # 对仓库内所有 .js / .mjs / .cjs 文件做语法检查
