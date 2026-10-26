@@ -165,12 +165,20 @@ ci: 添加 npm 自动发布工作流
 
 ## 📦 发布流程（维护者）
 
-打 tag 或推送版本变更后，由 `.github/workflows/publish.yml` 自动发布：
+发布由 `.github/workflows/publish.yml` 在**推送 `v*` tag** 时自动执行，也支持在 Actions 页面手动触发。
 
 ```bash
+# 1. 先将三个包的 version 改成一致（monorepo lockstep），例如 0.1.0
+# 2. 打 tag：tag 名必须为 v + 版本号，两者不一致会直接校验失败
 git tag v0.1.0
 git push origin v0.1.0
 ```
+
+工作流依次执行：**版本校验**（三包版本一致 / tag 与版本一致 / npm 上尚未存在该版本）→ 构建 → 依次发布。
+
+手动触发：Actions 页面选择 `Publish to npm` → `Run workflow`，`dry-run` 默认勾选，仅校验与构建、不真正发布；取消勾选则等同正式发布。
+
+> ⚠️ 已不再支持「推送 main 且 `packages/**/package.json` 变更」的自动发布：tag 推送时 `paths` 过滤器不生效，且任意 `package.json` 改动都会误触发发布。现统一改为 tag 驱动。
 
 三个包将依次发布到 npm：
 - `@rnoh-new/react-native-harmony`

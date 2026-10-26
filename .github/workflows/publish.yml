@@ -1,10 +1,17 @@
 # RNOH-New: 自动发布工作流
 #
 # 触发条件：
-#   1. 推送 tag（v*，如 v0.1.0）
-#   2. push 到 main 分支且 packages/*/package.json 版本号发生变更
+#   1. 推送 v* tag（正式发布）。tag 名必须与三个包的 version 一致，如 v0.1.0
+#   2. 手动触发（workflow_dispatch），默认 dry-run 仅校验不发布，便于排查
 #
-# 流程：checkout → setup-node → npm ci → 构建 → 依次发布三个 npm 包
+# 说明：
+#   - 已移除「push 到 main 且 packages/**/package.json 变更」触发方式。
+#     tag push 时 paths 过滤器不生效，且仅改 package.json 任意字段就会误触发发布，
+#     故统一改为 tag 驱动，发布动作必须显式打 tag。
+#   - 发布前由 scripts/check-publish-versions.js 校验版本一致性
+#     与 npm 上是否已存在该版本，避免发布到一半失败。
+#
+# 流程：checkout → setup-node → npm ci → 版本校验 → 构建 → 依次发布三个 npm 包
 
 name: Publish to npm
 
@@ -12,10 +19,16 @@ on:
   push:
     tags:
       - "v*"
-    branches:
-      - main
-    paths:
-      - "packages/**/package.json"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "仅校验不发布（dry-run）"
+        type: boolean
+        default: true
+
+# 只读仓库内容，发布认证走 NPM_TOKEN
+permissions:
+  contents: read
 
 jobs:
   publish:
@@ -26,6 +39,10 @@ jobs:
       group: npm-publish
       cancel-in-progress: false
 
+    env:
+      # 手动触发且勾选 dry-run 时，所有 publish 命令追加 --dry-run
+      DRY_RUN: ${{ inputs.dry-run == true && '--dry-run' || '' }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,27 +50,34 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          # React Native 0.86 要求 node ^20.19.4 || ^22.13.0 || ^24.3.0
+          node-version: 20
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: npm ci
+
+      # 发布前校验：三个包版本号一致、tag 与版本一致、npm 上尚未存在该版本
+      - name: Check publish versions
+        run: node scripts/check-publish-versions.js
+        env:
+          SKIP_REGISTRY_CHECK: ${{ inputs.dry-run == true && '1' || '' }}
 
       - name: Build packages
         run: npm run build
 
       # 依次发布三个包（必须使用 NPM_TOKEN 认证）
       - name: Publish @rnoh-new/react-native-harmony
-        run: npm publish --workspace @rnoh-new/react-native-harmony --access public
+        run: npm publish --workspace @rnoh-new/react-native-harmony --access public $DRY_RUN
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @rnoh-new/hvigor-plugin
-        run: npm publish --workspace @rnoh-new/hvigor-plugin --access public
+        run: npm publish --workspace @rnoh-new/hvigor-plugin --access public $DRY_RUN
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish @rnoh-new/create-rnh-app
-        run: npm publish --workspace @rnoh-new/create-rnh-app --access public
+        run: npm publish --workspace @rnoh-new/create-rnh-app --access public $DRY_RUN
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
