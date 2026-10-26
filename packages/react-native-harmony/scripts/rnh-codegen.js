@@ -10,7 +10,7 @@ import chalk from 'chalk';
 /**
  * Run the codegen command.
  */
-function runCodegen(options) {
+async function runCodegen(options) {
   const { projectRoot, rnohModulePath } = options;
 
   console.log(chalk.blue('Running RNOH-New codegen...'));

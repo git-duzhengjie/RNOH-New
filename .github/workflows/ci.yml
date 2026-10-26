@@ -70,7 +70,35 @@ jobs:
       # 对仓库内所有 .js / .mjs / .cjs 文件做语法检查
       - name: Node syntax check
         run: |
-          find . -type f \( -name "*.js" -o -name ".mjs" -o -name ".cjs" \) \
-            -not -path "./node_modules/*" -not -path "./packages/*/node_modules/*" \
-            -not -path "./examples/*/node_modules/*" \
-            | xargs -r -n 1 node -c
+          find . -type f \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) \
+            -not -path "./node_modules/*" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/oh_modules/*" \
+            -not -path "*/build/*" \
+            -not -path "*/dist/*" \
+            -not -path "*/.hvigor/*" \
+            -not -path "*/.cxx/*" \
+            -not -path "*/.git/*" \
+            -not -path "*/third-party/*" \
+            -not -path "*/legacy/*" \
+            | sort > /tmp/js-files.txt
+          echo "ℹ️  待检查 JS 文件数: $(wc -l < /tmp/js-files.txt)"
+          failed=0
+          while IFS= read -r f; do
+            # 先按 CommonJS 解析，失败再按 ESM 解析（兼容顶层 await / import 语法）
+            if node -c "$f" 2>/dev/null; then
+              continue
+            fi
+            if node --input-type=module --check < "$f" 2>/dev/null; then
+              continue
+            fi
+            echo "❌ $f"
+            # 打印诊断信息（避免因 set -e 直接中断，丢失后续文件结果）
+            { node -c "$f" 2>&1 | head -n 5; } || true
+            failed=$((failed + 1))
+          done < /tmp/js-files.txt
+          if [ "$failed" -gt 0 ]; then
+            echo "❌ Syntax errors in $failed file(s)"
+            exit 1
+          fi
+          echo "✅ Node syntax check passed"

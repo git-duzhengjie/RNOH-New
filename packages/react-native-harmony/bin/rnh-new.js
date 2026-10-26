@@ -39,7 +39,7 @@ program
   .requiredOption('--rnoh-module-path <path>', 'Path to the react-native-harmony module')
   .action(async (options) => {
     const { default: runCodegen } = await import('../scripts/rnh-codegen.js');
-    runCodegen(options);
+    await runCodegen(options);
   });
 
 program
