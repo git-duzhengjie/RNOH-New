@@ -268,6 +268,7 @@ export class MyPackage extends RNHPackage {
 - [RNOH](https://gitcode.com/CPF-RN/ohos_react_native) - 原 RNOH 项目，提供了宝贵的设计经验
 - [React Native](https://reactnative.dev/) - React Native 框架
 - [HarmonyOS](https://www.harmonyos.com/) - HarmonyOS 平台
+- [我的助手](https://my-assis.com) - 智能助手，协助本项目的开发与构建调试
 
 ## 📮 联系方式
 
