@@ -695,8 +695,8 @@ ScrollViewComponentInstance::getScrollViewMetrics() {
   scrollViewMetrics.contentOffset = currentOffset;
   scrollViewMetrics.containerSize = m_containerSize;
   m_velocityTracker.add(currentOffset.x, currentOffset.y);
-  auto velocity = m_velocityTracker.getVelocity();
-  scrollViewMetrics.velocity = {x : velocity.first, y : velocity.second};
+  // RN 0.88: ScrollViewMetrics 已移除 velocity 字段（改为由 ScrollEvent 携带），
+  // 这里不再写入；速度追踪仍保留供其它逻辑使用。
   return scrollViewMetrics;
 }
 

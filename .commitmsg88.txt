@@ -1,0 +1,29 @@
+feat: 升级 React Native 0.86 -> 0.88（JS + 原生基线 + 适配层）
+
+JS 侧：
+- react-native 0.88.0 / react 19.3.1 / Expo SDK 58
+- engines.node -> ^22.13.0 || ^24.3.0，CI 矩阵 [20,22] -> [22,24]
+- metro.config.js 适配 RN 0.88 CLI：platforms 含 harmony、nodeModulesPaths/watchFolders 补 monorepo 根
+- ExpoDemo: expo-file-system 改用 /legacy 入口
+
+原生侧：
+- third-party/rn/ReactCommon 基线替换为 RN 0.88 官方源码
+- 注册 0.88 新增模块：cxxstableapi / bridging / css / animationbackend /
+  viewtransition / observers-resize / animated / resizeobserver / nativemodule-viewtransition
+- 补 jsinspector-modern/cdp 的 SoMerging-utils no-op 与 ranges::empty 兼容实现
+- rawProps 从 RN_SERIALIZABLE_STATE 解耦，恢复鸿蒙组件 props 透传
+- 回补 UIManagerNodeOperationHook（并行文本测量依赖）
+- 按 0.88 重建 FBReactNativeSpec：88 个 FeatureFlag + ResizeObserver/ViewTransition spec
+
+适配层修复（RNOH / RNOHCorePackage）：
+- Text：paragraphAttributes / layoutDirection / maxFontSizeMultiplier 等 0.88 字段迁移
+- Touch：timestamp 改 float 并补 timeStamp
+- Scheduler：新增 4 个纯虚接口、MountingTransaction 改引用语义
+- RNFeatureFlags / RNOHMarker / ArkUINode(GradientDirection variant) / Image(tintColor optional) 等
+
+验证：
+- npm run build EXIT=0，类型检查全通过
+- assembleHar EXIT=0（原生全量编译 + 链接）
+- assembleHap EXIT=0，HAP 18.33 MB，8 个 .so，bundle 816 KB
+
+文档：新增 docs/REACT-NATIVE-0.88-UPGRADE.md（含 vendor 补丁重放清单）

@@ -19,6 +19,8 @@
 #include <react/renderer/core/Props.h>
 #include <react/renderer/core/ReactPrimitives.h>
 #include <react/renderer/core/State.h>
+#include <type_traits>
+#include <utility>
 #include <vector>
 #include "RNOH/ApiVersionCheck.h"
 #include "RNOH/Assert.h"
@@ -27,6 +29,23 @@
 using facebook::react::isZero;
 
 namespace rnoh {
+
+/**
+ * 探测 props 类型是否具备 needsOffscreenAlphaCompositing 字段。
+ *
+ * RN 0.88 起该字段从跨平台的 BaseViewProps 移入平台专用的
+ * HostPlatformViewProps（目前仅 Android 版提供）。这里用 traits 做条件编译，
+ * 保证在字段不存在的新版本上仍可编译。
+ */
+template <typename T, typename = void>
+struct HasNeedsOffscreenAlphaCompositing : std::false_type {};
+
+template <typename T>
+struct HasNeedsOffscreenAlphaCompositing<
+    T,
+    std::void_t<
+        decltype(std::declval<const T&>().needsOffscreenAlphaCompositing)>>
+    : std::true_type {};
 
 inline facebook::react::Rect transformRectAroundPoint(
     const facebook::react::Rect& rect,
@@ -644,9 +663,12 @@ class CppComponentInstance : public ComponentInstance,
       markBoundingBoxAsDirty();
     }
 
-    if (props->needsOffscreenAlphaCompositing !=
-        old->needsOffscreenAlphaCompositing) {
-      localRoot.setRenderGroup(props->needsOffscreenAlphaCompositing);
+    if constexpr (HasNeedsOffscreenAlphaCompositing<
+                      std::remove_reference_t<decltype(*props)>>::value) {
+      if (props->needsOffscreenAlphaCompositing !=
+          old->needsOffscreenAlphaCompositing) {
+        localRoot.setRenderGroup(props->needsOffscreenAlphaCompositing);
+      }
     }
 
     localRoot.setId(getIdFromProps(props));

@@ -68,15 +68,20 @@ void ModalHostViewComponentInstance::updateDisplayRect(
       (windowMetrics.left + windowMetrics.width) / windowMetrics.scale;
   auto stackNodeHeight =
       (windowMetrics.top + windowMetrics.height) / windowMetrics.scale;
-  m_rootStackNode.setSize(
-      facebook::react::Size{stackNodeWidth, stackNodeHeight});
+  m_rootStackNode.setSize(facebook::react::Size{
+      static_cast<facebook::react::Float>(stackNodeWidth),
+      static_cast<facebook::react::Float>(stackNodeHeight)});
   m_rootCustomNode.setPosition(
-      {windowMetrics.left / windowMetrics.scale,
-       windowMetrics.top / windowMetrics.scale});
+      {static_cast<facebook::react::Float>(
+           windowMetrics.left / windowMetrics.scale),
+       static_cast<facebook::react::Float>(
+           windowMetrics.top / windowMetrics.scale)});
   facebook::react::Size screenSize = {
-      .width = windowMetrics.width / windowMetrics.scale,
-      .height = (windowMetrics.height - windowMetrics.decorHeight) /
-          windowMetrics.scale};
+      .width = static_cast<facebook::react::Float>(
+          windowMetrics.width / windowMetrics.scale),
+      .height = static_cast<facebook::react::Float>(
+          (windowMetrics.height - windowMetrics.decorHeight) /
+          windowMetrics.scale)};
   state->updateState({screenSize});
   if (m_props->animationType ==
       facebook::react::ModalHostViewAnimationType::Slide) {

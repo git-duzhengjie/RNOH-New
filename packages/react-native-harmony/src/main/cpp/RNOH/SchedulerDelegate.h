@@ -79,6 +79,22 @@ class SchedulerDelegate final : public facebook::react::SchedulerDelegate {
       const std::unordered_map<facebook::react::Tag, folly::dynamic>&
           tagToProps) override;
 
+  // RN 0.88 新增的纯虚接口：视图快照（view snapshotting）与 revision 合并。
+  // 鸿蒙暂不实现快照能力，做 no-op 处理。
+  void schedulerShouldMergeReactRevision(facebook::react::SurfaceId surfaceId)
+      override;
+
+  void schedulerDidCaptureViewSnapshot(
+      facebook::react::Tag tag,
+      facebook::react::SurfaceId surfaceId) override;
+
+  void schedulerDidSetViewSnapshot(
+      facebook::react::Tag sourceTag,
+      facebook::react::Tag targetTag,
+      facebook::react::SurfaceId surfaceId) override;
+
+  void schedulerDidClearPendingSnapshots() override;
+
   void setScheduler(
       std::shared_ptr<facebook::react::Scheduler> const& scheduler);
 

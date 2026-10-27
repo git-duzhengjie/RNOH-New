@@ -30,7 +30,7 @@ class TextStorageBuilder final : public facebook::react::Sealable {
       : m_typographyStyle(paragraphAttributes),
         m_baseTextAttributes(baseTextAttributes),
         m_scale(pointScaleFactor),
-        m_maxFontScale(paragraphAttributes.maxFontSizeMultiplier),
+        m_maxFontScale(m_baseTextAttributes.maxFontSizeMultiplier),
         m_paragraphAttributes(paragraphAttributes),
         m_fontRegistry(fontRegistry),
         m_estimatedLength(0) {}

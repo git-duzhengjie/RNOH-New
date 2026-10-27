@@ -31,7 +31,7 @@ class HarmonyTimerRegistry final
   void createRecurringTimer(uint32_t timerId, double delayMs) override;
 
   void setTimerManager(
-      std::weak_ptr<facebook::react::TimerManager> timerManager);
+      std::weak_ptr<facebook::react::TimerManager> timerManager) override;
 
  private:
   /**

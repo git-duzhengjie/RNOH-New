@@ -75,16 +75,8 @@ TypographyStyleWrapper::TypographyStyleWrapper(
       TextConversions::getArkUIWordBreakStrategy(
           paragraphAttributes.textBreakStrategy));
 
-  if (paragraphAttributes.writingDirection ==
-      facebook::react::WritingDirection::LeftToRight) {
-    OH_Drawing_SetTypographyTextDirection(
-        m_typographyStyle.get(), TEXT_DIRECTION_LTR);
-  } else if (
-      paragraphAttributes.writingDirection ==
-      facebook::react::WritingDirection::RightToLeft) {
-    OH_Drawing_SetTypographyTextDirection(
-        m_typographyStyle.get(), TEXT_DIRECTION_RTL);
-  }
+  // RN 0.88: ParagraphAttributes 已移出 writingDirection 字段，
+  // 文本方向改由 TextAttributes.layoutDirection 在 apply() 中处理。
 }
 
 void TypographyStyleWrapper::apply(

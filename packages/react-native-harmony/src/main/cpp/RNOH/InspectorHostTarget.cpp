@@ -36,7 +36,7 @@ InspectorHostTarget::InspectorHostTarget(
             auto strong = weak.lock();
             return strong->connect(std::move(remote));
           },
-          {.nativePageReloads = true, .prefersFuseboxFrontend = true});
+          {.nativePageReloads = true});
 }
 
 InspectorHostTarget::~InspectorHostTarget() {

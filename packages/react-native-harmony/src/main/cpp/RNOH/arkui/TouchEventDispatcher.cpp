@@ -99,7 +99,11 @@ std::optional<facebook::react::Touch> convertTouchPointToReactTouch(
       .identifier = touchPoint.id,
       .target = target->getTouchTargetTag(),
       .force = touchPoint.force,
-      .timestamp = timestampSeconds};
+      // RN 0.88: timestamp 改为 Float（已 deprecated），新字段为 HighResTimeStamp
+      .timestamp = static_cast<float>(timestampSeconds),
+      .timeStamp =
+          facebook::react::HighResTimeStamp::fromDOMHighResTimeStamp(
+              timestampSeconds)};
 
   return touch;
 }
@@ -211,7 +215,11 @@ void TouchEventDispatcher::findTargetAndSendTouchEvent(
           .identifier = activeTouch.id,
           .target = eventTarget->getTouchTargetTag(),
           .force = activeTouch.force,
-          .timestamp = timestampSeconds};
+          // RN 0.88: timestamp 改为 Float（已 deprecated），新字段为 HighResTimeStamp
+          .timestamp = static_cast<float>(timestampSeconds),
+          .timeStamp =
+              facebook::react::HighResTimeStamp::fromDOMHighResTimeStamp(
+                  timestampSeconds)};
 
       cancelTouches.insert(cancelTouch);
       continue;

@@ -75,7 +75,9 @@ class FallbackComponentInstance
       if (position.isObject()) {
         auto x = position["x"].asDouble();
         auto y = position["y"].asDouble();
-        return {x, y};
+        return {
+            static_cast<facebook::react::Float>(x),
+            static_cast<facebook::react::Float>(y)};
       }
     }
     return {0, 0};

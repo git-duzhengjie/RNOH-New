@@ -48,6 +48,11 @@ if(PARALLELIZATION_ENABLE)
   add_compile_definitions(PARALLELIZATION_ON)
 endif()
 
+# RNOH: 不要开启 RN_SERIALIZABLE_STATE。
+# RN 0.88 中该宏还会激活大量 Android 专用代码（fbjni、toAndroidRepr 等），
+# 鸿蒙侧无法编译。rawProps 需求已通过修改 vendor 的 Props.h / Props.cpp /
+# ConcreteComponentDescriptor.h 解耦实现（见各文件中 RNOH 注释）。
+
 if(SPLIT_MUTATION_ENABLE)
   message("SPLIT MUTATION is enabled!")
   add_compile_definitions(SPLIT_MUTATION_ON)

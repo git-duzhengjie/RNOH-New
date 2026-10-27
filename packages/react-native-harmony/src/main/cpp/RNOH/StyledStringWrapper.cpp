@@ -210,12 +210,18 @@ StyledStringWrapper::Shared StyledStringWrapper::createStyledString(
   // get() (which seals this Sealable object) and still copy/share the pointer
   // without ever move/copy-constructing the sealed StyledStringWrapper value
   // (which would trip Sealable::ensureUnsealed in debug builds).
+  // RN 0.88: ParagraphAttributes 不再有 maxFontSizeMultiplier，
+  // 从首个文本 fragment 的 TextAttributes 取（无 fragment 时按 1.0 不缩放）
+  const auto& fragments = attributedString.getFragments();
+  facebook::react::Float maxFontScale = fragments.empty()
+      ? 1.0f
+      : fragments.front().textAttributes.maxFontSizeMultiplier;
   auto styledStringWrapper = std::make_shared<StyledStringWrapper>(
       typographyStyle.get(),
       fontRegistry.getFontCollection(),
       fontRegistry.getThemeFontFamily(),
       layoutContext.pointScaleFactor,
-      paragraphAttributes.maxFontSizeMultiplier);
+      maxFontScale);
   for (auto const& fragment : attributedString.getFragments()) {
     styledStringWrapper->addFragment(fragment);
   }

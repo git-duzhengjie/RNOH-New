@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-HarmonyOS-blue.svg)](https://www.harmonyos.com/)
-[![React Native](https://img.shields.io/badge/React%20Native-0.86+-green.svg)](https://reactnative.dev/)
+[![React Native](https://img.shields.io/badge/React%20Native-0.88+-green.svg)](https://reactnative.dev/)
 
 ## 🎯 项目目标
 
@@ -49,8 +49,8 @@ RNOH-New/
 
 - **HarmonyOS SDK**: API 12+ (HarmonyOS 5.0.0+)
 - **DevEco Studio**: 5.0+
-- **Node.js**: 18+
-- **React Native**: 0.86+
+- **Node.js**: 22+（React Native 0.88 要求 ^22.13.0 || ^24.3.0）
+- **React Native**: 0.88+
 
 ### 安装
 

@@ -19,8 +19,8 @@ jobs:
 
     strategy:
       matrix:
-        # React Native 0.86 要求 node ^20.19.4 || ^22.13.0 || ^24.3.0
-        node-version: [20, 22]
+        # React Native 0.88 要求 node ^22.13.0 || ^24.3.0 || >=26.0.0
+        node-version: [22, 24]
 
     steps:
       - name: Checkout repository

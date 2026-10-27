@@ -206,7 +206,10 @@ void ImageComponentInstance::onPropsChanged(SharedConcreteProps const& props) {
 #endif
 
   if (m_props->tintColor != props->tintColor) {
-    this->getLocalRootArkUINode().setTintColor(props->tintColor);
+    // RN 0.88: tintColor 变为 std::optional<SharedColor>，
+    // setTintColor 仍接收 SharedColor（可为 nullptr 表示无着色）
+    this->getLocalRootArkUINode().setTintColor(
+        props->tintColor.value_or(facebook::react::SharedColor{}));
   }
 
   if (m_props->blurRadius != props->blurRadius) {

@@ -67,7 +67,9 @@ void TextStorageProvider::uiManagerDidCreateShadowNode(
         [tag,
          paragraphAttributes = concreteProps.paragraphAttributes,
          textAttributes = concreteProps.textAttributes,
-         direction = paragraphShadowNode.getYGDirection(),
+         // RN 0.88: ParagraphShadowNode 不再提供 getYGDirection()，
+         // 改用布局结果里的 layoutDirection
+         direction = paragraphShadowNode.getLayoutMetrics().layoutDirection,
          weakTextStorageProvider = weak_from_this()]() {
           facebook::react::TraceSection s(
               "#RNOH::TextStorageProvider::emplaceBuilder");
@@ -99,9 +101,7 @@ void TextStorageProvider::uiManagerDidAppendChildNode(
   textAttributes.fontSizeMultiplier = m_fontScale.load();
   textAttributes.apply(concreteProps.textAttributes);
   textAttributes.layoutDirection =
-      paragraphShadowNode.getYGDirection() == YGDirectionRTL
-      ? facebook::react::LayoutDirection::RightToLeft
-      : facebook::react::LayoutDirection::LeftToRight;
+      paragraphShadowNode.getLayoutMetrics().layoutDirection;
 
   facebook::react::AttributedString attributedString;
   facebook::react::BaseTextShadowNode::Attachments attachments;
@@ -168,15 +168,13 @@ TextStorage::Shared TextStorageProvider::get(
 void TextStorageProvider::emplaceBuilder(
     facebook::react::Tag tag,
     const facebook::react::TextAttributes& textAttributes,
-    YGDirection direction,
+    facebook::react::LayoutDirection direction,
     const facebook::react::ParagraphAttributes& paragraphAttributes) {
   auto baseTextAttributes =
       facebook::react::TextAttributes::defaultTextAttributes();
   baseTextAttributes.fontSizeMultiplier = m_fontScale.load();
   baseTextAttributes.apply(textAttributes);
-  baseTextAttributes.layoutDirection = direction == YGDirectionRTL
-      ? facebook::react::LayoutDirection::RightToLeft
-      : facebook::react::LayoutDirection::LeftToRight;
+  baseTextAttributes.layoutDirection = direction;
   std::lock_guard<std::mutex> lock(m_builderMutex);
   RNOH_ASSERT(!m_builderByParagraphTag.count(tag));
   m_builderByParagraphTag.emplace(

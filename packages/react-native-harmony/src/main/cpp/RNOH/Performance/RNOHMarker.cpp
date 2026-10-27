@@ -45,8 +45,12 @@ void RNOHMarker::removeListener(RNOHMarkerListener::Shared listener) {
 void RNOHMarker::setLogMarkerIfNeeded() {
   static std::once_flag flag{};
   std::call_once(flag, []() {
-    ReactMarker::logTaggedMarkerImpl = RNOHMarker::logMarker;
-    ReactMarker::logTaggedMarkerBridgelessImpl = RNOHMarker::logMarker;
+    // RN 0.88: 移除了 logTaggedMarkerBridgelessImpl，且 logMarker 存在多个
+    // 重载无法直接取函数地址，这里用 lambda 明确签名后再赋值。
+    ReactMarker::logTaggedMarkerImpl =
+        [](ReactMarker::ReactMarkerId markerId, const char* tag) {
+          RNOHMarker::logMarker(markerId, tag);
+        };
   });
 }
 

@@ -116,8 +116,8 @@ class ArkUITypography final {
   facebook::react::TextMeasurement getMeasurement() const {
     return {
         {
-            .width = getLongestLineWidth(),
-            .height = getHeight(),
+            .width = static_cast<facebook::react::Float>(getLongestLineWidth()),
+            .height = static_cast<facebook::react::Float>(getHeight()),
         },
         getAttachments()};
   }
@@ -197,8 +197,10 @@ class ArkUITypography final {
               .to_bytes(u16LineText);
       facebook::react::LineMeasurement measurement(
           lineText,
-          {{metrics->x / m_scale, metrics->y / m_scale},
-           {metrics->width / m_scale, metrics->height / m_scale}},
+          {{static_cast<facebook::react::Float>(metrics->x / m_scale),
+            static_cast<facebook::react::Float>(metrics->y / m_scale)},
+           {static_cast<facebook::react::Float>(metrics->width / m_scale),
+            static_cast<facebook::react::Float>(metrics->height / m_scale)}},
           metrics->descender / m_scale,
           metrics->capHeight / m_scale,
           metrics->ascender / m_scale,

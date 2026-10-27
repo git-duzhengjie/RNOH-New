@@ -198,18 +198,18 @@ int32_t TextConversions::getArkUITextAlignment(
 
 std::optional<float> TextConversions::getMinFontSize(
     std::shared_ptr<const facebook::react::ParagraphProps> props) {
-  if (props->rawProps == nullptr ||
-      props->rawProps.count("adjustsFontSizeToFit") == 0 ||
-      props->rawProps.count("minimumFontScale") == 0) {
+  // RN 0.88: adjustsFontSizeToFit / minimumFontScale 属于 ParagraphProps 的
+  // paragraphAttributes 成员（Props::rawProps 仅 Android 可用）
+  if (!props->paragraphAttributes.adjustsFontSizeToFit ||
+      std::isnan(props->paragraphAttributes.minimumFontScale)) {
     return std::nullopt;
   }
-  bool adjustsFontSizeToFit = props->rawProps["adjustsFontSizeToFit"].asBool();
-  double minimumFontScale = props->rawProps["minimumFontScale"].asDouble();
+  double minimumFontScale = props->paragraphAttributes.minimumFontScale;
   float fontSize = std::isnan(props->textAttributes.fontSize)
       ? DEFAULT_FONT_SIZE
       : (float)props->textAttributes.fontSize;
   if (fabs((float)minimumFontScale) < EPSILON_THRESHOLD ||
-      fabs(fontSize) < EPSILON_THRESHOLD || !adjustsFontSizeToFit) {
+      fabs(fontSize) < EPSILON_THRESHOLD) {
     return std::nullopt;
   }
   return fontSize * minimumFontScale;

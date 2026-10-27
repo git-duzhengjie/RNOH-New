@@ -676,10 +676,12 @@ void SchedulerDelegate::schedulerDidUpdateShadowTree(
   // We will investigate if this method should be implemented
 }
 
-void logTransactionTelemetryMarkers(MountingTransaction const& transaction) {
+// RN 0.88: MountingTransaction 不再可拷贝，异步场景下只拷贝 telemetry，
+// 因此这里直接接收 TransactionTelemetry。
+void logTransactionTelemetryMarkers(
+    facebook::react::TransactionTelemetry const& telemetry) {
   RNOHMarker::logMarker(
       RNOHMarker::RNOHMarkerId::FABRIC_FINISH_TRANSACTION_END);
-  const auto& telemetry = transaction.getTelemetry();
   auto commitStartTime =
       telemetryTimePointToMilliseconds(telemetry.getCommitStartTime());
   auto commitEndTime =
@@ -777,6 +779,33 @@ void SchedulerDelegate::schedulerDidSetIsJSResponder(
   });
 }
 
+// RN 0.88 新增纯虚接口的 no-op 实现（鸿蒙暂不支持视图快照）
+void SchedulerDelegate::schedulerShouldMergeReactRevision(
+    facebook::react::SurfaceId surfaceId) {
+  facebook::react::TraceSection s(
+      "#RNOH::SchedulerDelegate::schedulerShouldMergeReactRevision");
+}
+
+void SchedulerDelegate::schedulerDidCaptureViewSnapshot(
+    facebook::react::Tag tag,
+    facebook::react::SurfaceId surfaceId) {
+  facebook::react::TraceSection s(
+      "#RNOH::SchedulerDelegate::schedulerDidCaptureViewSnapshot");
+}
+
+void SchedulerDelegate::schedulerDidSetViewSnapshot(
+    facebook::react::Tag sourceTag,
+    facebook::react::Tag targetTag,
+    facebook::react::SurfaceId surfaceId) {
+  facebook::react::TraceSection s(
+      "#RNOH::SchedulerDelegate::schedulerDidSetViewSnapshot");
+}
+
+void SchedulerDelegate::schedulerDidClearPendingSnapshots() {
+  facebook::react::TraceSection s(
+      "#RNOH::SchedulerDelegate::schedulerDidClearPendingSnapshots");
+}
+
 void SchedulerDelegate::performTransaction(
     const std::shared_ptr<const MountingCoordinator>& mountingCoordinator) {
   facebook::react::TraceSection s(
@@ -784,19 +813,23 @@ void SchedulerDelegate::performTransaction(
   RNOHMarker::logMarker(
       RNOHMarker::RNOHMarkerId::FABRIC_FINISH_TRANSACTION_START);
   mountingCoordinator->getTelemetryController().pullTransaction(
-      [](auto transaction, auto const& /*surfaceTelemetry*/) {},
-      [this](auto transaction, auto const& surfaceTelemetry) {
+      [](auto const& /*transaction*/, auto const& /*surfaceTelemetry*/) {},
+      [this](auto const& transaction, auto const& surfaceTelemetry) {
+        // RN 0.88: 回调参数改为 const MountingTransaction&（不再是 shared_ptr），
+        // 异步任务不能持有引用，故提前拷贝突变列表
+        auto mutations = transaction.getMutations();
         performOnMainThread(
-            [transaction](MountingManager::Shared const& mountingManager) {
-              mountingManager->doMount(transaction->getMutations());
+            [mutations = std::move(mutations)](
+                MountingManager::Shared const& mountingManager) {
+              mountingManager->doMount(mutations);
             });
       },
-      [this](auto transaction, auto const& surfaceTelemetry) {
+      [this](auto const& transaction, auto const& surfaceTelemetry) {
         int taskId = random();
         std::string taskTrace =
             "#RNOH::TaskExecutor::runningTask t" + std::to_string(taskId);
-        const auto txId = transaction->getNumber();
-        const auto surfaceId = transaction->getSurfaceId();
+        const auto txId = transaction.getNumber();
+        const auto surfaceId = transaction.getSurfaceId();
         auto performOnMainThreadNextFrame =
             [this](std::function<void(MountingManager::Shared const&)> task) {
               NextFrameDispatcher::Get().post(
@@ -808,7 +841,7 @@ void SchedulerDelegate::performTransaction(
             };
 
         const bool forceSerialForSurface =
-            shouldForceSerialForSurface(surfaceId, transaction->getMutations());
+            shouldForceSerialForSurface(surfaceId, transaction.getMutations());
         if (IsParallelizationEnabled() && !forceSerialForSurface) {
           facebook::react::TraceSection s(
               "#RNOH::SchedulerDelegate::didMount");
@@ -819,7 +852,7 @@ void SchedulerDelegate::performTransaction(
                           .max_parallelism(MAX_THREAD_NUM_MUTATION_CREATE)
                           .qos(THREAD_PRIORITY_LEVEL_5));
           auto createBuckets =
-              bucketizeCreateMutations(transaction->getMutations());
+              bucketizeCreateMutations(transaction.getMutations());
           ShadowViewMutationList paraCreateMutationList;
           ShadowViewMutationList otherCreateMutationList;
           auto otherMutationList = std::move(createBuckets.deferredTail);
@@ -864,7 +897,9 @@ void SchedulerDelegate::performTransaction(
           auto taskExecutor = this->m_taskExecutor;
           auto weakMountingManager = this->m_mountingManager;
           auto weakScheduler = this->m_scheduler;
-          auto transactionCopy = transaction;
+          // RN 0.88: MountingTransaction 不可拷贝（回调参数为引用），
+          // 异步任务只需要 telemetry 数据，单独拷贝出来
+          auto telemetryCopy = transaction.getTelemetry();
           auto paraCreateCopy = std::move(paraCreateMutationList);
           auto otherCreateCopy = std::move(otherCreateMutationList);
           auto otherMutationCopy = std::move(otherMutationList);
@@ -886,7 +921,7 @@ void SchedulerDelegate::performTransaction(
               taskExecutor,
               weakMountingManager,
               weakScheduler,
-              transactionCopy,
+              telemetryCopy,
               paraCreateCopy = std::move(paraCreateCopy),
               otherCreateCopy = std::move(otherCreateCopy),
               otherMutationCopy = std::move(otherMutationCopy),
@@ -1041,7 +1076,7 @@ void SchedulerDelegate::performTransaction(
                            MountingManager::Shared const& mountingManager) {
               reportMountFor(mountingManager, paraCreateCopy);
             });
-            logTransactionTelemetryMarkers(*transactionCopy);
+            logTransactionTelemetryMarkers(telemetryCopy);
           });
           facebook::react::TraceSection ss(
               ("#RNOH::TaskExecutor::runTask t" + std::to_string(taskId))
@@ -1049,7 +1084,7 @@ void SchedulerDelegate::performTransaction(
           return;
         }
         auto createBuckets =
-            bucketizeCreateMutations(transaction->getMutations());
+            bucketizeCreateMutations(transaction.getMutations());
         auto& sliceableMutations = createBuckets.movableCreates;
         auto& otherMutations = createBuckets.deferredTail;
         // The reason for using 70 here is that the average time for each
@@ -1156,7 +1191,7 @@ void SchedulerDelegate::performTransaction(
                 });
           }
         }
-        logTransactionTelemetryMarkers(*transaction);
+        logTransactionTelemetryMarkers(transaction.getTelemetry());
         facebook::react::TraceSection s(
             ("#RNOH::TaskExecutor::runTask t" + std::to_string(taskId))
                 .c_str());

@@ -110,7 +110,7 @@ class TextStorageProvider
   void emplaceBuilder(
       facebook::react::Tag tag,
       const facebook::react::TextAttributes& textAttributes,
-      YGDirection direction,
+      facebook::react::LayoutDirection direction,
       const facebook::react::ParagraphAttributes& paragraphAttributes);
 
   /**

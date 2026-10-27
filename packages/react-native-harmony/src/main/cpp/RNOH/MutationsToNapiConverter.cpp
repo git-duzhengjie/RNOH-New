@@ -125,6 +125,9 @@ napi_value MutationsToNapiConverter::convertShadowView(
       .addProperty("type", shadowView.componentName)
       .addProperty("childrenTags", arkJS.createArray())
       .addProperty(
-          "rawProps", arkJS.createFromDynamic(shadowView.props->rawProps))
+          // RN 0.88: Props::rawProps 仅在 Android（RN_SERIALIZABLE_STATE）下提供，
+          // 鸿蒙侧传空对象，具体属性由 ArkTS 侧从 props 各字段读取
+          "rawProps",
+          arkJS.createFromDynamic(folly::dynamic::object()))
       .build();
 }

@@ -338,10 +338,10 @@ ArkUINode& ArkUINode::setWidth(float width) {
 ArkUINode& ArkUINode::setBorderWidth(
     facebook::react::BorderWidths const& borderWidths) {
   facebook::react::BorderWidths borderWidth;
-  borderWidth.top = std::max(borderWidths.top, 0.0);
-  borderWidth.right = std::max(borderWidths.right, 0.0);
-  borderWidth.bottom = std::max(borderWidths.bottom, 0.0);
-  borderWidth.left = std::max(borderWidths.left, 0.0);
+  borderWidth.top = std::max(borderWidths.top, 0.0f);
+  borderWidth.right = std::max(borderWidths.right, 0.0f);
+  borderWidth.bottom = std::max(borderWidths.bottom, 0.0f);
+  borderWidth.left = std::max(borderWidths.left, 0.0f);
   ArkUI_NumberValue borderWidthValue[] = {
       {.f32 = static_cast<float>(borderWidth.top)},
       {.f32 = static_cast<float>(borderWidth.right)},
@@ -358,10 +358,10 @@ ArkUINode& ArkUINode::setBorderWidth(
 ArkUINode& ArkUINode::setOutlineWidth(
     facebook::react::BorderWidths const& outlineWidths) {
   facebook::react::BorderWidths outlineWidth;
-  outlineWidth.left = std::max(outlineWidths.left, 0.0);
-  outlineWidth.top = std::max(outlineWidths.top, 0.0);
-  outlineWidth.right = std::max(outlineWidths.right, 0.0);
-  outlineWidth.bottom = std::max(outlineWidths.bottom, 0.0);
+  outlineWidth.left = std::max(outlineWidths.left, 0.0f);
+  outlineWidth.top = std::max(outlineWidths.top, 0.0f);
+  outlineWidth.right = std::max(outlineWidths.right, 0.0f);
+  outlineWidth.bottom = std::max(outlineWidths.bottom, 0.0f);
 
   ArkUI_NumberValue outlineWidthValue[] = {
       {.f32 = static_cast<float>(outlineWidth.top)},
@@ -737,13 +737,13 @@ float computeGradientLineLength(
   constexpr float kPi = 3.14159265358979323846f;
   constexpr float kRadPerDeg = kPi / 180.0f;
   float angleDeg = 180.0f;
-  if (gradient.direction.type ==
-      facebook::react::GradientDirectionType::Angle) {
+  // RN 0.88: GradientDirection 改为 std::variant<Float, GradientKeyword>
+  if (std::holds_alternative<facebook::react::Float>(gradient.direction)) {
     angleDeg = static_cast<float>(
-        std::get<facebook::react::Float>(gradient.direction.value));
+        std::get<facebook::react::Float>(gradient.direction));
   } else {
     auto keyword =
-        std::get<facebook::react::GradientKeyword>(gradient.direction.value);
+        std::get<facebook::react::GradientKeyword>(gradient.direction);
     switch (keyword) {
       case facebook::react::GradientKeyword::ToTopRight:
         angleDeg = 90.0f - std::atan2(width, height) / kRadPerDeg;
@@ -884,13 +884,14 @@ ArkUINode& ArkUINode::setBackgroundImage(
   int32_t direction = static_cast<int32_t>(
       ArkUI_LinearGradientDirection::ARKUI_LINEAR_GRADIENT_DIRECTION_CUSTOM);
 
-  if (linearGradient.direction.type ==
-      facebook::react::GradientDirectionType::Angle) {
-    angle = std::get<facebook::react::Float>(linearGradient.direction.value);
+  // RN 0.88: GradientDirection 改为 std::variant<Float, GradientKeyword>
+  if (std::holds_alternative<facebook::react::Float>(
+          linearGradient.direction)) {
+    angle = std::get<facebook::react::Float>(linearGradient.direction);
     DLOG(INFO) << "[BGIMG] direction=Angle, angle=" << angle;
   } else {
     auto keyword = std::get<facebook::react::GradientKeyword>(
-        linearGradient.direction.value);
+        linearGradient.direction);
     direction = static_cast<int32_t>(
         ArkUI_LinearGradientDirection::ARKUI_LINEAR_GRADIENT_DIRECTION_BOTTOM);
     switch (keyword) {

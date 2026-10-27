@@ -17,7 +17,8 @@ import {
   View,
 } from 'react-native';
 import Constants from 'expo-constants';
-import * as FileSystem from 'expo-file-system';
+// SDK 58 起 documentDirectory / cacheDirectory 等旧 API 移入 legacy 入口
+import * as FileSystem from 'expo-file-system/legacy';
 import * as SecureStore from 'expo-secure-store';
 import { Asset } from 'expo-asset';
 

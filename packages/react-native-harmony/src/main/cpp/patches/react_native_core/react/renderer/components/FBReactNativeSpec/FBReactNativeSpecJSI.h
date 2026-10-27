@@ -227,47 +227,48 @@ protected:
     methodMap_["commonTestFlagWithoutNativeImplementation"] = MethodMetadata {.argCount = 0, .invoker = __commonTestFlagWithoutNativeImplementation};
     methodMap_["cdpInteractionMetricsEnabled"] = MethodMetadata {.argCount = 0, .invoker = __cdpInteractionMetricsEnabled};
     methodMap_["cxxNativeAnimatedEnabled"] = MethodMetadata {.argCount = 0, .invoker = __cxxNativeAnimatedEnabled};
+    methodMap_["defaultTextToOverflowHidden"] = MethodMetadata {.argCount = 0, .invoker = __defaultTextToOverflowHidden};
     methodMap_["disableEarlyViewCommandExecution"] = MethodMetadata {.argCount = 0, .invoker = __disableEarlyViewCommandExecution};
     methodMap_["disableImageViewPreallocationAndroid"] = MethodMetadata {.argCount = 0, .invoker = __disableImageViewPreallocationAndroid};
     methodMap_["disableMountItemReorderingAndroid"] = MethodMetadata {.argCount = 0, .invoker = __disableMountItemReorderingAndroid};
-    methodMap_["disableOldAndroidAttachmentMetricsWorkarounds"] = MethodMetadata {.argCount = 0, .invoker = __disableOldAndroidAttachmentMetricsWorkarounds};
     methodMap_["disableSubviewClippingAndroid"] = MethodMetadata {.argCount = 0, .invoker = __disableSubviewClippingAndroid};
     methodMap_["disableTextLayoutManagerCacheAndroid"] = MethodMetadata {.argCount = 0, .invoker = __disableTextLayoutManagerCacheAndroid};
     methodMap_["disableViewPreallocationAndroid"] = MethodMetadata {.argCount = 0, .invoker = __disableViewPreallocationAndroid};
     methodMap_["enableAccessibilityOrder"] = MethodMetadata {.argCount = 0, .invoker = __enableAccessibilityOrder};
     methodMap_["enableAccumulatedUpdatesInRawPropsAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableAccumulatedUpdatesInRawPropsAndroid};
-    methodMap_["enableAndroidAntialiasedBorderRadiusClipping"] = MethodMetadata {.argCount = 0, .invoker = __enableAndroidAntialiasedBorderRadiusClipping};
-    methodMap_["enableAndroidLinearText"] = MethodMetadata {.argCount = 0, .invoker = __enableAndroidLinearText};
     methodMap_["enableAndroidTextMeasurementOptimizations"] = MethodMetadata {.argCount = 0, .invoker = __enableAndroidTextMeasurementOptimizations};
     methodMap_["enableBridgelessArchitecture"] = MethodMetadata {.argCount = 0, .invoker = __enableBridgelessArchitecture};
+    methodMap_["enableBufferedCallInvoker"] = MethodMetadata {.argCount = 0, .invoker = __enableBufferedCallInvoker};
     methodMap_["enableCppPropsIteratorSetter"] = MethodMetadata {.argCount = 0, .invoker = __enableCppPropsIteratorSetter};
     methodMap_["enableCustomFocusSearchOnClippedElementsAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableCustomFocusSearchOnClippedElementsAndroid};
     methodMap_["enableDestroyShadowTreeRevisionAsync"] = MethodMetadata {.argCount = 0, .invoker = __enableDestroyShadowTreeRevisionAsync};
     methodMap_["enableDoubleMeasurementFixAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableDoubleMeasurementFixAndroid};
-    methodMap_["enableEagerMainQueueModulesOnIOS"] = MethodMetadata {.argCount = 0, .invoker = __enableEagerMainQueueModulesOnIOS};
     methodMap_["enableEagerRootViewAttachment"] = MethodMetadata {.argCount = 0, .invoker = __enableEagerRootViewAttachment};
     methodMap_["enableExclusivePropsUpdateAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableExclusivePropsUpdateAndroid};
+    methodMap_["enableFabricCommitBranching"] = MethodMetadata {.argCount = 0, .invoker = __enableFabricCommitBranching};
     methodMap_["enableFabricLogs"] = MethodMetadata {.argCount = 0, .invoker = __enableFabricLogs};
-    methodMap_["enableFabricRenderer"] = MethodMetadata {.argCount = 0, .invoker = __enableFabricRenderer};
+    methodMap_["enableFlexboxAutoMinSizeInStrictMode"] = MethodMetadata {.argCount = 0, .invoker = __enableFlexboxAutoMinSizeInStrictMode};
     methodMap_["enableFontScaleChangesUpdatingLayout"] = MethodMetadata {.argCount = 0, .invoker = __enableFontScaleChangesUpdatingLayout};
+    methodMap_["enableIOSCompressedTextFrameAdjustment"] = MethodMetadata {.argCount = 0, .invoker = __enableIOSCompressedTextFrameAdjustment};
     methodMap_["enableIOSTextBaselineOffsetPerLine"] = MethodMetadata {.argCount = 0, .invoker = __enableIOSTextBaselineOffsetPerLine};
     methodMap_["enableIOSViewClipToPaddingBox"] = MethodMetadata {.argCount = 0, .invoker = __enableIOSViewClipToPaddingBox};
     methodMap_["enableImagePrefetchingAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableImagePrefetchingAndroid};
-    methodMap_["enableImagePrefetchingJNIBatchingAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableImagePrefetchingJNIBatchingAndroid};
-    methodMap_["enableImagePrefetchingOnUiThreadAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableImagePrefetchingOnUiThreadAndroid};
+    methodMap_["enableImageTransparentTintColor"] = MethodMetadata {.argCount = 0, .invoker = __enableImageTransparentTintColor};
     methodMap_["enableImmediateUpdateModeForContentOffsetChanges"] = MethodMetadata {.argCount = 0, .invoker = __enableImmediateUpdateModeForContentOffsetChanges};
+    methodMap_["enableImperativeEvents"] = MethodMetadata {.argCount = 0, .invoker = __enableImperativeEvents};
     methodMap_["enableImperativeFocus"] = MethodMetadata {.argCount = 0, .invoker = __enableImperativeFocus};
     methodMap_["enableInteropViewManagerClassLookUpOptimizationIOS"] = MethodMetadata {.argCount = 0, .invoker = __enableInteropViewManagerClassLookUpOptimizationIOS};
     methodMap_["enableIntersectionObserverByDefault"] = MethodMetadata {.argCount = 0, .invoker = __enableIntersectionObserverByDefault};
     methodMap_["enableKeyEvents"] = MethodMetadata {.argCount = 0, .invoker = __enableKeyEvents};
     methodMap_["enableLayoutAnimationsOnAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableLayoutAnimationsOnAndroid};
     methodMap_["enableLayoutAnimationsOnIOS"] = MethodMetadata {.argCount = 0, .invoker = __enableLayoutAnimationsOnIOS};
-    methodMap_["enableMainQueueCoordinatorOnIOS"] = MethodMetadata {.argCount = 0, .invoker = __enableMainQueueCoordinatorOnIOS};
     methodMap_["enableModuleArgumentNSNullConversionIOS"] = MethodMetadata {.argCount = 0, .invoker = __enableModuleArgumentNSNullConversionIOS};
+    methodMap_["enableMountingCoordinatorPullModelAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enableMountingCoordinatorPullModelAndroid};
+    methodMap_["enableMutationObserverByDefault"] = MethodMetadata {.argCount = 0, .invoker = __enableMutationObserverByDefault};
     methodMap_["enableNativeCSSParsing"] = MethodMetadata {.argCount = 0, .invoker = __enableNativeCSSParsing};
-    methodMap_["enableNetworkEventReporting"] = MethodMetadata {.argCount = 0, .invoker = __enableNetworkEventReporting};
     methodMap_["enablePreparedTextLayout"] = MethodMetadata {.argCount = 0, .invoker = __enablePreparedTextLayout};
     methodMap_["enablePropsUpdateReconciliationAndroid"] = MethodMetadata {.argCount = 0, .invoker = __enablePropsUpdateReconciliationAndroid};
+    methodMap_["enableResizeObserverByDefault"] = MethodMetadata {.argCount = 0, .invoker = __enableResizeObserverByDefault};
     methodMap_["enableSwiftUIBasedFilters"] = MethodMetadata {.argCount = 0, .invoker = __enableSwiftUIBasedFilters};
     methodMap_["enableViewCulling"] = MethodMetadata {.argCount = 0, .invoker = __enableViewCulling};
     methodMap_["enableViewRecycling"] = MethodMetadata {.argCount = 0, .invoker = __enableViewRecycling};
@@ -276,44 +277,42 @@ protected:
     methodMap_["enableViewRecyclingForText"] = MethodMetadata {.argCount = 0, .invoker = __enableViewRecyclingForText};
     methodMap_["enableViewRecyclingForView"] = MethodMetadata {.argCount = 0, .invoker = __enableViewRecyclingForView};
     methodMap_["enableVirtualViewContainerStateExperimental"] = MethodMetadata {.argCount = 0, .invoker = __enableVirtualViewContainerStateExperimental};
-    methodMap_["enableVirtualViewDebugFeatures"] = MethodMetadata {.argCount = 0, .invoker = __enableVirtualViewDebugFeatures};
-    methodMap_["enableVirtualViewRenderState"] = MethodMetadata {.argCount = 0, .invoker = __enableVirtualViewRenderState};
-    methodMap_["enableVirtualViewWindowFocusDetection"] = MethodMetadata {.argCount = 0, .invoker = __enableVirtualViewWindowFocusDetection};
-    methodMap_["enableWebPerformanceAPIsByDefault"] = MethodMetadata {.argCount = 0, .invoker = __enableWebPerformanceAPIsByDefault};
+    methodMap_["fixDifferentiatorParentTagForUnflattenCase"] = MethodMetadata {.argCount = 0, .invoker = __fixDifferentiatorParentTagForUnflattenCase};
     methodMap_["fixMappingOfEventPrioritiesBetweenFabricAndReact"] = MethodMetadata {.argCount = 0, .invoker = __fixMappingOfEventPrioritiesBetweenFabricAndReact};
-    methodMap_["fixTextClippingAndroid15useBoundsForWidth"] = MethodMetadata {.argCount = 0, .invoker = __fixTextClippingAndroid15useBoundsForWidth};
+    methodMap_["fixYogaFlexBasisFitContentInMainAxis"] = MethodMetadata {.argCount = 0, .invoker = __fixYogaFlexBasisFitContentInMainAxis};
     methodMap_["fuseboxAssertSingleHostState"] = MethodMetadata {.argCount = 0, .invoker = __fuseboxAssertSingleHostState};
     methodMap_["fuseboxEnabledRelease"] = MethodMetadata {.argCount = 0, .invoker = __fuseboxEnabledRelease};
-    methodMap_["fuseboxNetworkInspectionEnabled"] = MethodMetadata {.argCount = 0, .invoker = __fuseboxNetworkInspectionEnabled};
-    methodMap_["hideOffscreenVirtualViewsOnIOS"] = MethodMetadata {.argCount = 0, .invoker = __hideOffscreenVirtualViewsOnIOS};
+    methodMap_["fuseboxFrameRecordingEnabled"] = MethodMetadata {.argCount = 0, .invoker = __fuseboxFrameRecordingEnabled};
+    methodMap_["fuseboxScreenshotCaptureEnabled"] = MethodMetadata {.argCount = 0, .invoker = __fuseboxScreenshotCaptureEnabled};
+    methodMap_["fuseboxWebSocketEventsEnabled"] = MethodMetadata {.argCount = 0, .invoker = __fuseboxWebSocketEventsEnabled};
+    methodMap_["optimizedAnimatedPropUpdates"] = MethodMetadata {.argCount = 0, .invoker = __optimizedAnimatedPropUpdates};
     methodMap_["overrideBySynchronousMountPropsAtMountingAndroid"] = MethodMetadata {.argCount = 0, .invoker = __overrideBySynchronousMountPropsAtMountingAndroid};
     methodMap_["perfIssuesEnabled"] = MethodMetadata {.argCount = 0, .invoker = __perfIssuesEnabled};
     methodMap_["perfMonitorV2Enabled"] = MethodMetadata {.argCount = 0, .invoker = __perfMonitorV2Enabled};
     methodMap_["preparedTextCacheSize"] = MethodMetadata {.argCount = 0, .invoker = __preparedTextCacheSize};
     methodMap_["preventShadowTreeCommitExhaustion"] = MethodMetadata {.argCount = 0, .invoker = __preventShadowTreeCommitExhaustion};
+    methodMap_["redBoxV2Android"] = MethodMetadata {.argCount = 0, .invoker = __redBoxV2Android};
+    methodMap_["redBoxV2IOS"] = MethodMetadata {.argCount = 0, .invoker = __redBoxV2IOS};
     methodMap_["shouldPressibilityUseW3CPointerEventsForHover"] = MethodMetadata {.argCount = 0, .invoker = __shouldPressibilityUseW3CPointerEventsForHover};
-    methodMap_["shouldResetClickableWhenRecyclingView"] = MethodMetadata {.argCount = 0, .invoker = __shouldResetClickableWhenRecyclingView};
-    methodMap_["shouldResetOnClickListenerWhenRecyclingView"] = MethodMetadata {.argCount = 0, .invoker = __shouldResetOnClickListenerWhenRecyclingView};
-    methodMap_["shouldSetEnabledBasedOnAccessibilityState"] = MethodMetadata {.argCount = 0, .invoker = __shouldSetEnabledBasedOnAccessibilityState};
-    methodMap_["shouldSetIsClickableByDefault"] = MethodMetadata {.argCount = 0, .invoker = __shouldSetIsClickableByDefault};
     methodMap_["shouldTriggerResponderTransferOnScrollAndroid"] = MethodMetadata {.argCount = 0, .invoker = __shouldTriggerResponderTransferOnScrollAndroid};
     methodMap_["skipActivityIdentityAssertionOnHostPause"] = MethodMetadata {.argCount = 0, .invoker = __skipActivityIdentityAssertionOnHostPause};
+    methodMap_["syncAndroidClipBoundsWithOverflow"] = MethodMetadata {.argCount = 0, .invoker = __syncAndroidClipBoundsWithOverflow};
     methodMap_["traceTurboModulePromiseRejectionsOnAndroid"] = MethodMetadata {.argCount = 0, .invoker = __traceTurboModulePromiseRejectionsOnAndroid};
     methodMap_["updateRuntimeShadowNodeReferencesOnCommit"] = MethodMetadata {.argCount = 0, .invoker = __updateRuntimeShadowNodeReferencesOnCommit};
+    methodMap_["updateRuntimeShadowNodeReferencesOnCommitThread"] = MethodMetadata {.argCount = 0, .invoker = __updateRuntimeShadowNodeReferencesOnCommitThread};
     methodMap_["useAlwaysAvailableJSErrorHandling"] = MethodMetadata {.argCount = 0, .invoker = __useAlwaysAvailableJSErrorHandling};
     methodMap_["useFabricInterop"] = MethodMetadata {.argCount = 0, .invoker = __useFabricInterop};
     methodMap_["useNativeViewConfigsInBridgelessMode"] = MethodMetadata {.argCount = 0, .invoker = __useNativeViewConfigsInBridgelessMode};
-    methodMap_["useRawPropsJsiValue"] = MethodMetadata {.argCount = 0, .invoker = __useRawPropsJsiValue};
-    methodMap_["useShadowNodeStateOnClone"] = MethodMetadata {.argCount = 0, .invoker = __useShadowNodeStateOnClone};
+    methodMap_["useNestedScrollViewAndroid"] = MethodMetadata {.argCount = 0, .invoker = __useNestedScrollViewAndroid};
     methodMap_["useSharedAnimatedBackend"] = MethodMetadata {.argCount = 0, .invoker = __useSharedAnimatedBackend};
     methodMap_["useTraitHiddenOnAndroid"] = MethodMetadata {.argCount = 0, .invoker = __useTraitHiddenOnAndroid};
     methodMap_["useTurboModuleInterop"] = MethodMetadata {.argCount = 0, .invoker = __useTurboModuleInterop};
-    methodMap_["useTurboModules"] = MethodMetadata {.argCount = 0, .invoker = __useTurboModules};
     methodMap_["viewCullingOutsetRatio"] = MethodMetadata {.argCount = 0, .invoker = __viewCullingOutsetRatio};
-    methodMap_["virtualViewHysteresisRatio"] = MethodMetadata {.argCount = 0, .invoker = __virtualViewHysteresisRatio};
+    methodMap_["viewTransitionEnabled"] = MethodMetadata {.argCount = 0, .invoker = __viewTransitionEnabled};
+    methodMap_["viewTransitionUseHardwareBitmapAndroid"] = MethodMetadata {.argCount = 0, .invoker = __viewTransitionUseHardwareBitmapAndroid};
     methodMap_["virtualViewPrerenderRatio"] = MethodMetadata {.argCount = 0, .invoker = __virtualViewPrerenderRatio};
   }
-  
+
 private:
   static jsi::Value __commonTestFlag(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
@@ -343,6 +342,13 @@ private:
     return bridging::callFromJs<bool>(rt, &T::cxxNativeAnimatedEnabled,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
+  static jsi::Value __defaultTextToOverflowHidden(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::defaultTextToOverflowHidden) == 1,
+      "Expected defaultTextToOverflowHidden(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::defaultTextToOverflowHidden,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
   static jsi::Value __disableEarlyViewCommandExecution(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::disableEarlyViewCommandExecution) == 1,
@@ -362,13 +368,6 @@ private:
       bridging::getParameterCount(&T::disableMountItemReorderingAndroid) == 1,
       "Expected disableMountItemReorderingAndroid(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::disableMountItemReorderingAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __disableOldAndroidAttachmentMetricsWorkarounds(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::disableOldAndroidAttachmentMetricsWorkarounds) == 1,
-      "Expected disableOldAndroidAttachmentMetricsWorkarounds(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::disableOldAndroidAttachmentMetricsWorkarounds,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __disableSubviewClippingAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -406,20 +405,6 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableAccumulatedUpdatesInRawPropsAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __enableAndroidAntialiasedBorderRadiusClipping(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableAndroidAntialiasedBorderRadiusClipping) == 1,
-      "Expected enableAndroidAntialiasedBorderRadiusClipping(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableAndroidAntialiasedBorderRadiusClipping,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __enableAndroidLinearText(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableAndroidLinearText) == 1,
-      "Expected enableAndroidLinearText(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableAndroidLinearText,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
   static jsi::Value __enableAndroidTextMeasurementOptimizations(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::enableAndroidTextMeasurementOptimizations) == 1,
@@ -432,6 +417,13 @@ private:
       bridging::getParameterCount(&T::enableBridgelessArchitecture) == 1,
       "Expected enableBridgelessArchitecture(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::enableBridgelessArchitecture,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __enableBufferedCallInvoker(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableBufferedCallInvoker) == 1,
+      "Expected enableBufferedCallInvoker(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableBufferedCallInvoker,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enableCppPropsIteratorSetter(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -462,13 +454,6 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableDoubleMeasurementFixAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __enableEagerMainQueueModulesOnIOS(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableEagerMainQueueModulesOnIOS) == 1,
-      "Expected enableEagerMainQueueModulesOnIOS(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableEagerMainQueueModulesOnIOS,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
   static jsi::Value __enableEagerRootViewAttachment(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::enableEagerRootViewAttachment) == 1,
@@ -483,6 +468,13 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableExclusivePropsUpdateAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
+  static jsi::Value __enableFabricCommitBranching(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableFabricCommitBranching) == 1,
+      "Expected enableFabricCommitBranching(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableFabricCommitBranching,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
   static jsi::Value __enableFabricLogs(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::enableFabricLogs) == 1,
@@ -490,11 +482,11 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableFabricLogs,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __enableFabricRenderer(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __enableFlexboxAutoMinSizeInStrictMode(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::enableFabricRenderer) == 1,
-      "Expected enableFabricRenderer(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableFabricRenderer,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::enableFlexboxAutoMinSizeInStrictMode) == 1,
+      "Expected enableFlexboxAutoMinSizeInStrictMode(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableFlexboxAutoMinSizeInStrictMode,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enableFontScaleChangesUpdatingLayout(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -502,6 +494,13 @@ private:
       bridging::getParameterCount(&T::enableFontScaleChangesUpdatingLayout) == 1,
       "Expected enableFontScaleChangesUpdatingLayout(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::enableFontScaleChangesUpdatingLayout,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __enableIOSCompressedTextFrameAdjustment(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableIOSCompressedTextFrameAdjustment) == 1,
+      "Expected enableIOSCompressedTextFrameAdjustment(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableIOSCompressedTextFrameAdjustment,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enableIOSTextBaselineOffsetPerLine(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -525,18 +524,11 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableImagePrefetchingAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __enableImagePrefetchingJNIBatchingAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __enableImageTransparentTintColor(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::enableImagePrefetchingJNIBatchingAndroid) == 1,
-      "Expected enableImagePrefetchingJNIBatchingAndroid(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableImagePrefetchingJNIBatchingAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __enableImagePrefetchingOnUiThreadAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableImagePrefetchingOnUiThreadAndroid) == 1,
-      "Expected enableImagePrefetchingOnUiThreadAndroid(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableImagePrefetchingOnUiThreadAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::enableImageTransparentTintColor) == 1,
+      "Expected enableImageTransparentTintColor(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableImageTransparentTintColor,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enableImmediateUpdateModeForContentOffsetChanges(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -544,6 +536,13 @@ private:
       bridging::getParameterCount(&T::enableImmediateUpdateModeForContentOffsetChanges) == 1,
       "Expected enableImmediateUpdateModeForContentOffsetChanges(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::enableImmediateUpdateModeForContentOffsetChanges,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __enableImperativeEvents(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableImperativeEvents) == 1,
+      "Expected enableImperativeEvents(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableImperativeEvents,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enableImperativeFocus(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -588,13 +587,6 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableLayoutAnimationsOnIOS,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __enableMainQueueCoordinatorOnIOS(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableMainQueueCoordinatorOnIOS) == 1,
-      "Expected enableMainQueueCoordinatorOnIOS(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableMainQueueCoordinatorOnIOS,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
   static jsi::Value __enableModuleArgumentNSNullConversionIOS(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::enableModuleArgumentNSNullConversionIOS) == 1,
@@ -602,18 +594,25 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableModuleArgumentNSNullConversionIOS,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
+  static jsi::Value __enableMountingCoordinatorPullModelAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableMountingCoordinatorPullModelAndroid) == 1,
+      "Expected enableMountingCoordinatorPullModelAndroid(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableMountingCoordinatorPullModelAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __enableMutationObserverByDefault(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableMutationObserverByDefault) == 1,
+      "Expected enableMutationObserverByDefault(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableMutationObserverByDefault,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
   static jsi::Value __enableNativeCSSParsing(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::enableNativeCSSParsing) == 1,
       "Expected enableNativeCSSParsing(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::enableNativeCSSParsing,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __enableNetworkEventReporting(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableNetworkEventReporting) == 1,
-      "Expected enableNetworkEventReporting(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableNetworkEventReporting,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enablePreparedTextLayout(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -628,6 +627,13 @@ private:
       bridging::getParameterCount(&T::enablePropsUpdateReconciliationAndroid) == 1,
       "Expected enablePropsUpdateReconciliationAndroid(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::enablePropsUpdateReconciliationAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __enableResizeObserverByDefault(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::enableResizeObserverByDefault) == 1,
+      "Expected enableResizeObserverByDefault(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::enableResizeObserverByDefault,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __enableSwiftUIBasedFilters(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -686,32 +692,11 @@ private:
     return bridging::callFromJs<bool>(rt, &T::enableVirtualViewContainerStateExperimental,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __enableVirtualViewDebugFeatures(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __fixDifferentiatorParentTagForUnflattenCase(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::enableVirtualViewDebugFeatures) == 1,
-      "Expected enableVirtualViewDebugFeatures(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableVirtualViewDebugFeatures,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __enableVirtualViewRenderState(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableVirtualViewRenderState) == 1,
-      "Expected enableVirtualViewRenderState(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableVirtualViewRenderState,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __enableVirtualViewWindowFocusDetection(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableVirtualViewWindowFocusDetection) == 1,
-      "Expected enableVirtualViewWindowFocusDetection(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableVirtualViewWindowFocusDetection,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __enableWebPerformanceAPIsByDefault(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::enableWebPerformanceAPIsByDefault) == 1,
-      "Expected enableWebPerformanceAPIsByDefault(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::enableWebPerformanceAPIsByDefault,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::fixDifferentiatorParentTagForUnflattenCase) == 1,
+      "Expected fixDifferentiatorParentTagForUnflattenCase(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::fixDifferentiatorParentTagForUnflattenCase,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __fixMappingOfEventPrioritiesBetweenFabricAndReact(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -721,11 +706,11 @@ private:
     return bridging::callFromJs<bool>(rt, &T::fixMappingOfEventPrioritiesBetweenFabricAndReact,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __fixTextClippingAndroid15useBoundsForWidth(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __fixYogaFlexBasisFitContentInMainAxis(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::fixTextClippingAndroid15useBoundsForWidth) == 1,
-      "Expected fixTextClippingAndroid15useBoundsForWidth(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::fixTextClippingAndroid15useBoundsForWidth,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::fixYogaFlexBasisFitContentInMainAxis) == 1,
+      "Expected fixYogaFlexBasisFitContentInMainAxis(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::fixYogaFlexBasisFitContentInMainAxis,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __fuseboxAssertSingleHostState(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -742,18 +727,32 @@ private:
     return bridging::callFromJs<bool>(rt, &T::fuseboxEnabledRelease,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __fuseboxNetworkInspectionEnabled(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __fuseboxFrameRecordingEnabled(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::fuseboxNetworkInspectionEnabled) == 1,
-      "Expected fuseboxNetworkInspectionEnabled(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::fuseboxNetworkInspectionEnabled,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::fuseboxFrameRecordingEnabled) == 1,
+      "Expected fuseboxFrameRecordingEnabled(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::fuseboxFrameRecordingEnabled,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __hideOffscreenVirtualViewsOnIOS(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __fuseboxScreenshotCaptureEnabled(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::hideOffscreenVirtualViewsOnIOS) == 1,
-      "Expected hideOffscreenVirtualViewsOnIOS(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::hideOffscreenVirtualViewsOnIOS,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::fuseboxScreenshotCaptureEnabled) == 1,
+      "Expected fuseboxScreenshotCaptureEnabled(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::fuseboxScreenshotCaptureEnabled,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __fuseboxWebSocketEventsEnabled(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::fuseboxWebSocketEventsEnabled) == 1,
+      "Expected fuseboxWebSocketEventsEnabled(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::fuseboxWebSocketEventsEnabled,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __optimizedAnimatedPropUpdates(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::optimizedAnimatedPropUpdates) == 1,
+      "Expected optimizedAnimatedPropUpdates(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::optimizedAnimatedPropUpdates,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __overrideBySynchronousMountPropsAtMountingAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -791,39 +790,25 @@ private:
     return bridging::callFromJs<bool>(rt, &T::preventShadowTreeCommitExhaustion,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
+  static jsi::Value __redBoxV2Android(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::redBoxV2Android) == 1,
+      "Expected redBoxV2Android(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::redBoxV2Android,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __redBoxV2IOS(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::redBoxV2IOS) == 1,
+      "Expected redBoxV2IOS(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::redBoxV2IOS,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
   static jsi::Value __shouldPressibilityUseW3CPointerEventsForHover(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::shouldPressibilityUseW3CPointerEventsForHover) == 1,
       "Expected shouldPressibilityUseW3CPointerEventsForHover(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::shouldPressibilityUseW3CPointerEventsForHover,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __shouldResetClickableWhenRecyclingView(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::shouldResetClickableWhenRecyclingView) == 1,
-      "Expected shouldResetClickableWhenRecyclingView(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::shouldResetClickableWhenRecyclingView,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __shouldResetOnClickListenerWhenRecyclingView(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::shouldResetOnClickListenerWhenRecyclingView) == 1,
-      "Expected shouldResetOnClickListenerWhenRecyclingView(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::shouldResetOnClickListenerWhenRecyclingView,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __shouldSetEnabledBasedOnAccessibilityState(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::shouldSetEnabledBasedOnAccessibilityState) == 1,
-      "Expected shouldSetEnabledBasedOnAccessibilityState(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::shouldSetEnabledBasedOnAccessibilityState,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __shouldSetIsClickableByDefault(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::shouldSetIsClickableByDefault) == 1,
-      "Expected shouldSetIsClickableByDefault(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::shouldSetIsClickableByDefault,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __shouldTriggerResponderTransferOnScrollAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -840,6 +825,13 @@ private:
     return bridging::callFromJs<bool>(rt, &T::skipActivityIdentityAssertionOnHostPause,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
+  static jsi::Value __syncAndroidClipBoundsWithOverflow(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::syncAndroidClipBoundsWithOverflow) == 1,
+      "Expected syncAndroidClipBoundsWithOverflow(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::syncAndroidClipBoundsWithOverflow,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
   static jsi::Value __traceTurboModulePromiseRejectionsOnAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::traceTurboModulePromiseRejectionsOnAndroid) == 1,
@@ -852,6 +844,13 @@ private:
       bridging::getParameterCount(&T::updateRuntimeShadowNodeReferencesOnCommit) == 1,
       "Expected updateRuntimeShadowNodeReferencesOnCommit(...) to have 1 parameters");
     return bridging::callFromJs<bool>(rt, &T::updateRuntimeShadowNodeReferencesOnCommit,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __updateRuntimeShadowNodeReferencesOnCommitThread(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::updateRuntimeShadowNodeReferencesOnCommitThread) == 1,
+      "Expected updateRuntimeShadowNodeReferencesOnCommitThread(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::updateRuntimeShadowNodeReferencesOnCommitThread,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __useAlwaysAvailableJSErrorHandling(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -875,18 +874,11 @@ private:
     return bridging::callFromJs<bool>(rt, &T::useNativeViewConfigsInBridgelessMode,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __useRawPropsJsiValue(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __useNestedScrollViewAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::useRawPropsJsiValue) == 1,
-      "Expected useRawPropsJsiValue(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::useRawPropsJsiValue,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
-  static jsi::Value __useShadowNodeStateOnClone(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::useShadowNodeStateOnClone) == 1,
-      "Expected useShadowNodeStateOnClone(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::useShadowNodeStateOnClone,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::useNestedScrollViewAndroid) == 1,
+      "Expected useNestedScrollViewAndroid(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::useNestedScrollViewAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __useSharedAnimatedBackend(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -910,13 +902,6 @@ private:
     return bridging::callFromJs<bool>(rt, &T::useTurboModuleInterop,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __useTurboModules(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
-    static_assert(
-      bridging::getParameterCount(&T::useTurboModules) == 1,
-      "Expected useTurboModules(...) to have 1 parameters");
-    return bridging::callFromJs<bool>(rt, &T::useTurboModules,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
-  }
-
   static jsi::Value __viewCullingOutsetRatio(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
       bridging::getParameterCount(&T::viewCullingOutsetRatio) == 1,
@@ -924,11 +909,18 @@ private:
     return bridging::callFromJs<double>(rt, &T::viewCullingOutsetRatio,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
-  static jsi::Value __virtualViewHysteresisRatio(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+  static jsi::Value __viewTransitionEnabled(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
     static_assert(
-      bridging::getParameterCount(&T::virtualViewHysteresisRatio) == 1,
-      "Expected virtualViewHysteresisRatio(...) to have 1 parameters");
-    return bridging::callFromJs<double>(rt, &T::virtualViewHysteresisRatio,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+      bridging::getParameterCount(&T::viewTransitionEnabled) == 1,
+      "Expected viewTransitionEnabled(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::viewTransitionEnabled,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+
+  static jsi::Value __viewTransitionUseHardwareBitmapAndroid(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::viewTransitionUseHardwareBitmapAndroid) == 1,
+      "Expected viewTransitionUseHardwareBitmapAndroid(...) to have 1 parameters");
+    return bridging::callFromJs<bool>(rt, &T::viewTransitionUseHardwareBitmapAndroid,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
 
   static jsi::Value __virtualViewPrerenderRatio(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
@@ -937,7 +929,245 @@ private:
       "Expected virtualViewPrerenderRatio(...) to have 1 parameters");
     return bridging::callFromJs<double>(rt, &T::virtualViewPrerenderRatio,  static_cast<NativeReactNativeFeatureFlagsCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
   }
+
 };
+
+// ===== 以下 spec 由 RN 0.88 codegen 生成，补充 0.88 新增的 TurboModule =====
+
+#pragma mark - NativeResizeObserverNativeResizeObserverEntry
+
+template <typename P0, typename P1, typename P2, typename P3, typename P4, typename P5>
+struct NativeResizeObserverNativeResizeObserverEntry {
+  P0 resizeObserverId{};
+  P1 targetInstanceHandle{};
+  P2 contentRect{};
+  P3 borderBoxSize{};
+  P4 contentBoxSize{};
+  P5 devicePixelContentBoxSize;
+  bool operator==(const NativeResizeObserverNativeResizeObserverEntry &other) const {
+    return resizeObserverId == other.resizeObserverId && targetInstanceHandle == other.targetInstanceHandle && contentRect == other.contentRect && borderBoxSize == other.borderBoxSize && contentBoxSize == other.contentBoxSize && devicePixelContentBoxSize == other.devicePixelContentBoxSize;
+  }
+};
+
+template <typename T>
+struct NativeResizeObserverNativeResizeObserverEntryBridging {
+  static T types;
+
+  static T fromJs(
+      jsi::Runtime &rt,
+      const jsi::Object &value,
+      const std::shared_ptr<CallInvoker> &jsInvoker) {
+    T result{
+      bridging::fromJs<decltype(types.resizeObserverId)>(rt, value.getProperty(rt, "resizeObserverId"), jsInvoker),
+      bridging::fromJs<decltype(types.targetInstanceHandle)>(rt, value.getProperty(rt, "targetInstanceHandle"), jsInvoker),
+      bridging::fromJs<decltype(types.contentRect)>(rt, value.getProperty(rt, "contentRect"), jsInvoker),
+      bridging::fromJs<decltype(types.borderBoxSize)>(rt, value.getProperty(rt, "borderBoxSize"), jsInvoker),
+      bridging::fromJs<decltype(types.contentBoxSize)>(rt, value.getProperty(rt, "contentBoxSize"), jsInvoker),
+      bridging::fromJs<decltype(types.devicePixelContentBoxSize)>(rt, value.getProperty(rt, "devicePixelContentBoxSize"), jsInvoker)};
+    return result;
+  }
+
+#ifdef DEBUG
+  static double resizeObserverIdToJs(jsi::Runtime &rt, decltype(types.resizeObserverId) value) {
+    return bridging::toJs(rt, value);
+  }
+  static jsi::Value targetInstanceHandleToJs(jsi::Runtime &rt, decltype(types.targetInstanceHandle) value) {
+    return bridging::toJs(rt, value);
+  }
+  static jsi::Array contentRectToJs(jsi::Runtime &rt, decltype(types.contentRect) value) {
+    return bridging::toJs(rt, value);
+  }
+  static jsi::Array borderBoxSizeToJs(jsi::Runtime &rt, decltype(types.borderBoxSize) value) {
+    return bridging::toJs(rt, value);
+  }
+  static jsi::Array contentBoxSizeToJs(jsi::Runtime &rt, decltype(types.contentBoxSize) value) {
+    return bridging::toJs(rt, value);
+  }
+  static jsi::Array devicePixelContentBoxSizeToJs(jsi::Runtime &rt, decltype(types.devicePixelContentBoxSize) value) {
+    return bridging::toJs(rt, value);
+  }
+#endif
+
+  static jsi::Object toJs(
+      jsi::Runtime &rt,
+      const T &value,
+      const std::shared_ptr<CallInvoker> &jsInvoker) {
+    auto result = facebook::jsi::Object(rt);
+    result.setProperty(rt, "resizeObserverId", bridging::toJs(rt, value.resizeObserverId, jsInvoker));
+    result.setProperty(rt, "targetInstanceHandle", bridging::toJs(rt, value.targetInstanceHandle, jsInvoker));
+    result.setProperty(rt, "contentRect", bridging::toJs(rt, value.contentRect, jsInvoker));
+    result.setProperty(rt, "borderBoxSize", bridging::toJs(rt, value.borderBoxSize, jsInvoker));
+    result.setProperty(rt, "contentBoxSize", bridging::toJs(rt, value.contentBoxSize, jsInvoker));
+    result.setProperty(rt, "devicePixelContentBoxSize", bridging::toJs(rt, value.devicePixelContentBoxSize, jsInvoker));
+    return result;
+  }
+};
+
+
+
+#pragma mark - NativeResizeObserverNativeResizeObserverObserveOptions
+
+template <typename P0, typename P1, typename P2>
+struct NativeResizeObserverNativeResizeObserverObserveOptions {
+  P0 resizeObserverId{};
+  P1 targetShadowNode{};
+  P2 box;
+  bool operator==(const NativeResizeObserverNativeResizeObserverObserveOptions &other) const {
+    return resizeObserverId == other.resizeObserverId && targetShadowNode == other.targetShadowNode && box == other.box;
+  }
+};
+
+template <typename T>
+struct NativeResizeObserverNativeResizeObserverObserveOptionsBridging {
+  static T types;
+
+  static T fromJs(
+      jsi::Runtime &rt,
+      const jsi::Object &value,
+      const std::shared_ptr<CallInvoker> &jsInvoker) {
+    T result{
+      bridging::fromJs<decltype(types.resizeObserverId)>(rt, value.getProperty(rt, "resizeObserverId"), jsInvoker),
+      bridging::fromJs<decltype(types.targetShadowNode)>(rt, value.getProperty(rt, "targetShadowNode"), jsInvoker),
+      bridging::fromJs<decltype(types.box)>(rt, value.getProperty(rt, "box"), jsInvoker)};
+    return result;
+  }
+
+#ifdef DEBUG
+  static double resizeObserverIdToJs(jsi::Runtime &rt, decltype(types.resizeObserverId) value) {
+    return bridging::toJs(rt, value);
+  }
+  static jsi::Value targetShadowNodeToJs(jsi::Runtime &rt, decltype(types.targetShadowNode) value) {
+    return bridging::toJs(rt, value);
+  }
+  static std::optional<jsi::String> boxToJs(jsi::Runtime &rt, decltype(types.box) value) {
+    return bridging::toJs(rt, value);
+  }
+#endif
+
+  static jsi::Object toJs(
+      jsi::Runtime &rt,
+      const T &value,
+      const std::shared_ptr<CallInvoker> &jsInvoker) {
+    auto result = facebook::jsi::Object(rt);
+    result.setProperty(rt, "resizeObserverId", bridging::toJs(rt, value.resizeObserverId, jsInvoker));
+    result.setProperty(rt, "targetShadowNode", bridging::toJs(rt, value.targetShadowNode, jsInvoker));
+    if (value.box) {
+      result.setProperty(rt, "box", bridging::toJs(rt, value.box.value(), jsInvoker));
+    }
+    return result;
+  }
+};
+
+
+template <typename T>
+class JSI_EXPORT NativeResizeObserverCxxSpec : public TurboModule {
+public:
+  static constexpr std::string_view kModuleName = "NativeResizeObserverCxx";
+
+protected:
+  NativeResizeObserverCxxSpec(std::shared_ptr<CallInvoker> jsInvoker) : TurboModule(std::string{NativeResizeObserverCxxSpec::kModuleName}, jsInvoker) {
+    methodMap_["observe"] = MethodMetadata {.argCount = 1, .invoker = __observe};
+    methodMap_["unobserve"] = MethodMetadata {.argCount = 2, .invoker = __unobserve};
+    methodMap_["connect"] = MethodMetadata {.argCount = 1, .invoker = __connect};
+    methodMap_["disconnect"] = MethodMetadata {.argCount = 0, .invoker = __disconnect};
+    methodMap_["takeRecords"] = MethodMetadata {.argCount = 0, .invoker = __takeRecords};
+  }
+  
+private:
+  static jsi::Value __observe(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::observe) == 2,
+      "Expected observe(...) to have 2 parameters");
+    return bridging::callFromJs<jsi::Value>(rt, &T::observe,  static_cast<NativeResizeObserverCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asObject(rt));
+  }
+
+  static jsi::Value __unobserve(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::unobserve) == 3,
+      "Expected unobserve(...) to have 3 parameters");
+    bridging::callFromJs<void>(rt, &T::unobserve,  static_cast<NativeResizeObserverCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asNumber(),
+      count <= 1 ? throw jsi::JSError(rt, "Expected argument in position 1 to be passed") : jsi::Value(rt, args[1]));return jsi::Value::undefined();
+  }
+
+  static jsi::Value __connect(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::connect) == 2,
+      "Expected connect(...) to have 2 parameters");
+    bridging::callFromJs<void>(rt, &T::connect,  static_cast<NativeResizeObserverCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asObject(rt).asFunction(rt));return jsi::Value::undefined();
+  }
+
+  static jsi::Value __disconnect(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::disconnect) == 1,
+      "Expected disconnect(...) to have 1 parameters");
+    bridging::callFromJs<void>(rt, &T::disconnect,  static_cast<NativeResizeObserverCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));return jsi::Value::undefined();
+  }
+
+  static jsi::Value __takeRecords(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* /*args*/, size_t /*count*/) {
+    static_assert(
+      bridging::getParameterCount(&T::takeRecords) == 1,
+      "Expected takeRecords(...) to have 1 parameters");
+    return bridging::callFromJs<jsi::Array>(rt, &T::takeRecords,  static_cast<NativeResizeObserverCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule));
+  }
+};
+
+
+
+
+
+template <typename T>
+class JSI_EXPORT NativeViewTransitionCxxSpec : public TurboModule {
+public:
+  static constexpr std::string_view kModuleName = "NativeViewTransitionCxx";
+
+protected:
+  NativeViewTransitionCxxSpec(std::shared_ptr<CallInvoker> jsInvoker) : TurboModule(std::string{NativeViewTransitionCxxSpec::kModuleName}, jsInvoker) {
+    methodMap_["getViewTransitionInstance"] = MethodMetadata {.argCount = 2, .invoker = __getViewTransitionInstance};
+    methodMap_["findPseudoElementShadowNodeByTag"] = MethodMetadata {.argCount = 1, .invoker = __findPseudoElementShadowNodeByTag};
+    methodMap_["waitForTransitionAnimation"] = MethodMetadata {.argCount = 1, .invoker = __waitForTransitionAnimation};
+    methodMap_["transitionAnimationFinished"] = MethodMetadata {.argCount = 1, .invoker = __transitionAnimationFinished};
+  }
+  
+private:
+  static jsi::Value __getViewTransitionInstance(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::getViewTransitionInstance) == 3,
+      "Expected getViewTransitionInstance(...) to have 3 parameters");
+    auto result = bridging::callFromJs<std::optional<jsi::Object>>(rt, &T::getViewTransitionInstance,  static_cast<NativeViewTransitionCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asString(rt),
+      count <= 1 ? throw jsi::JSError(rt, "Expected argument in position 1 to be passed") : args[1].asString(rt));return result ? jsi::Value(std::move(*result)) : jsi::Value::null();
+  }
+
+  static jsi::Value __findPseudoElementShadowNodeByTag(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::findPseudoElementShadowNodeByTag) == 2,
+      "Expected findPseudoElementShadowNodeByTag(...) to have 2 parameters");
+    auto result = bridging::callFromJs<std::optional<jsi::Value>>(rt, &T::findPseudoElementShadowNodeByTag,  static_cast<NativeViewTransitionCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asNumber());return result ? jsi::Value(std::move(*result)) : jsi::Value::null();
+  }
+
+  static jsi::Value __waitForTransitionAnimation(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::waitForTransitionAnimation) == 2,
+      "Expected waitForTransitionAnimation(...) to have 2 parameters");
+    bridging::callFromJs<void>(rt, &T::waitForTransitionAnimation,  static_cast<NativeViewTransitionCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asNumber());return jsi::Value::undefined();
+  }
+
+  static jsi::Value __transitionAnimationFinished(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+    static_assert(
+      bridging::getParameterCount(&T::transitionAnimationFinished) == 2,
+      "Expected transitionAnimationFinished(...) to have 2 parameters");
+    bridging::callFromJs<void>(rt, &T::transitionAnimationFinished,  static_cast<NativeViewTransitionCxxSpec*>(&turboModule)->jsInvoker_, static_cast<T*>(&turboModule),
+      count <= 0 ? throw jsi::JSError(rt, "Expected argument in position 0 to be passed") : args[0].asNumber());return jsi::Value::undefined();
+  }
+};
+
+
+
 
 
 template <typename T>

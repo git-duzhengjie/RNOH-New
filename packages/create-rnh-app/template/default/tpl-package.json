@@ -11,15 +11,15 @@
     "build:harmony": "cd harmony && hvigorw assembleHap"
   },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-native": "0.86.0",
+    "react": "^19.3.0",
+    "react-native": "0.88.0",
     "@rnoh-new/react-native-harmony": "0.1.0",
     "@rnoh-new/hvigor-plugin": "0.1.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
+    "@types/react": "^19.1.1",
     "typescript": "^5.6.0",
-    "@react-native/babel-preset": "^0.86.0",
-    "@react-native/metro-babel-transformer": "^0.86.0"
+    "@react-native/babel-preset": "^0.88.0",
+    "@react-native/metro-babel-transformer": "^0.88.0"
   }
 }

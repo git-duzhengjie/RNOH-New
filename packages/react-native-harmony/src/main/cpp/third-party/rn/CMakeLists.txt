@@ -4,6 +4,14 @@ endif()
 set(REACT_COMMON_DIR ${RNOH_REACT_COMMON_DIR} CACHE INTERNAL "")
 set(REACT_COMMON_PATCH_DIR "${patches_dir}/react_native_core")
 
+# RNOH: RN 0.88 的 ReactCommon/jsinspector-modern/cdp 会 include
+# ${REACT_ANDROID_DIR}/src/main/jni/first-party/jni-lib-merge/SoMerging-utils.cmake
+# 并调用 target_merge_so（Android 多 so 合并，HarmonyOS 不需要）。
+# 此处将该目录指向 patches 下的 no-op 实现，保证配置阶段通过。
+if(NOT DEFINED REACT_ANDROID_DIR)
+  set(REACT_ANDROID_DIR "${patches_dir}/react_android")
+endif()
+
 include_directories(${REACT_COMMON_PATCH_DIR})
 
 # dummy targets added to avoid modyfing CMakeLists located in ReactCommon
@@ -32,6 +40,9 @@ add_compile_definitions(
 
 add_react_common_subdir(yoga)
 add_library(yoga ALIAS yogacore)
+# RNOH: RN 0.88 新增 react/cxxstableapi（INTERFACE 头文件库），
+# oscompat / jsinspector 等 target 均链接它，需在它们之前 add
+add_react_common_subdir(react/cxxstableapi)
 add_react_common_subdir(oscompat)
 add_react_common_subdir(runtimeexecutor)
 add_react_common_subdir(reactperflogger)
@@ -45,6 +56,10 @@ add_react_common_subdir(callinvoker)
 add_react_common_subdir(jsinspector-modern/cdp)
 add_react_common_subdir(jsinspector-modern/network)
 add_react_common_subdir(jsinspector-modern)
+# RNOH: 鸿蒙 libc++ 未实现 std::ranges::empty（RN 0.88 的 HostTargetTracing.h 用到），
+# 用 -include 注入兼容实现，避免修改 vendor 源码
+target_compile_options(jsinspector PRIVATE
+  -include "${REACT_COMMON_PATCH_DIR}/compat/ranges_empty_compat.h")
 add_react_common_subdir(jsinspector-modern/tracing)
 add_react_common_subdir(react/networking)
 add_react_common_subdir(react/runtime)
@@ -104,6 +119,19 @@ add_react_common_subdir(react/nativemodule/cputime)
 add_react_common_subdir(react/nativemodule/fantomtestspecificmethods)
 add_react_common_subdir(react/renderer/observers/mutation)
 add_react_common_subdir(react/nativemodule/mutationobserver)
+
+# RNOH: RN 0.88 新增 animated / viewtransition / resizeobserver 等模块，
+# 不 add 会导致 AnimatedModule / ViewTransitionModule / NativeResizeObserver
+# 等构造与 vtable 符号未定义（链接失败）
+# RNOH: RN 0.88 新增 react/renderer/bridging、react/renderer/css
+add_react_common_subdir(react/renderer/bridging)
+add_react_common_subdir(react/renderer/css)
+add_react_common_subdir(react/renderer/animationbackend)
+add_react_common_subdir(react/renderer/viewtransition)
+add_react_common_subdir(react/renderer/observers/resize)
+add_react_common_subdir(react/renderer/animated)
+add_react_common_subdir(react/nativemodule/resizeobserver)
+add_react_common_subdir(react/nativemodule/viewtransition)
 target_include_directories(react_nativemodule_core
                            PRIVATE "${REACT_COMMON_DIR}/callinvoker")
 
@@ -175,6 +203,11 @@ add_library(reactnative
           $<TARGET_OBJECTS:react_performance_cdpmetrics>
           $<TARGET_OBJECTS:react_performance_timeline>
           $<TARGET_OBJECTS:react_renderer_animations>
+$<TARGET_OBJECTS:react_renderer_animationbackend>
+$<TARGET_OBJECTS:react_renderer_animated>
+$<TARGET_OBJECTS:react_renderer_observers_resize>
+$<TARGET_OBJECTS:react_nativemodule_resizeobserver>
+$<TARGET_OBJECTS:react_nativemodule_viewtransition>
           $<TARGET_OBJECTS:react_renderer_attributedstring>
           $<TARGET_OBJECTS:react_renderer_componentregistry>
           $<TARGET_OBJECTS:react_renderer_consistency>
@@ -300,7 +333,7 @@ target_include_directories(reactnative
         $<TARGET_PROPERTY:yoga,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
-set(REACTNATIVE_LIBRARIES glog folly jsi ffrt::ffrt_cpp libffrt.z.so)
+set(REACTNATIVE_LIBRARIES glog folly jsi ffrt::ffrt_cpp libffrt.z.so react_renderer_viewtransition)
 
 # add hitrace systrace implementation
 if(WITH_HITRACE_SYSTRACE OR WITH_HITRACE_REACT_MARKER)
